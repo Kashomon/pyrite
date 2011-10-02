@@ -1,7 +1,6 @@
 # Copyright (c) 2011 by Joshua Hoak, Aaron Deich, Alissa Pajer 
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
-
 import datetime 
 
 #TODO (josh): Perhaps properties should be in charge of their own parsing? 
@@ -15,7 +14,7 @@ class PostProperty:
         self.divId = divId  
 
     def compile(self, content):
-        return "<div id = " + self.divId + ">\n" +  content + "\n</div>"
+        return "<div id = \"" + self.divId + "\">\n" +  content + "\n</div>"
 
 
 class Title(PostProperty):
