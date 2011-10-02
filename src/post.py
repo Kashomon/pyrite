@@ -1,4 +1,5 @@
-# TODO: add more copyright info
+#!/usr/bin/python
+# Copyright (c) 2011 by Joshua Hoak, Aaron Deich, Alissa Pajer 
 # Licensed under the MIT License 
 
 class Post:
@@ -26,6 +27,4 @@ class Post(Property):
 
 class Date(Property):
     pass
-
-  
     
