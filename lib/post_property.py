@@ -7,14 +7,14 @@ import datetime
 #TODO (josh): Perhaps each class should be its own file?
 class PostProperty:
     """
-    Defines a property of a post.  All properties get their own divid and
+    Defines a property of a post.  All properties get their own div class and
     get rendered as HTML.
     """
     def __init__(self, divId):  
         self.divId = divId  
 
     def compile(self, content):
-        return "<div id = \"" + self.divId + "\">\n" +  content + "\n</div>"
+        return "<div class=\"" + self.divId + "\">\n" +  content + "\n</div>"
 
 
 class Title(PostProperty):
@@ -33,7 +33,7 @@ class PostBody(PostProperty):
     def compile(self):
         pass
 
-class Date(Property):
+class Date(PostProperty):
     """
     The Date Property stores a Date object locally until it comes time to
     create the HTML post, in which case it renders as a String 
@@ -44,7 +44,7 @@ class Date(Property):
     def compile(self):
         pass 
 
-class Tags(Property):
+class Tags(PostProperty):
     """
     Stores a list of topic-tags
     """
