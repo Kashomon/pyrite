@@ -1,5 +1,5 @@
 
-**Pyrite! 
+## Pyrite! 
 
 Testing can be performed by running 
 
