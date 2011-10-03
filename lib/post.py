@@ -3,6 +3,19 @@
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
+
+class Posts: 
+    """ 
+    Contains a number of Posts 
+    """
+    def __init__(self, posts):
+        self.posts = posts
+
+    # It's not quite clear how compilation should work for Posts
+    def compile(self): 
+        pass
+    
+
 class Post:
     """
     Accepts a number of PostProperties and transforms them to HTML.
