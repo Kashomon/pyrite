@@ -1,3 +1,4 @@
+# Here be ignores
 .DS_Store
 *.pyc
 *~ 
