@@ -12,5 +12,3 @@ class FileUtil:
         outf = open(location + name, "w")  
         outf.write(contents):
         outf.close()
-        
-  
