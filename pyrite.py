@@ -5,6 +5,6 @@
 def main():
     pass 
 
-# Execut the
+# Execut the main func
 if __name__ == "__main__":
     main()
