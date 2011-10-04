@@ -1,5 +1,7 @@
 
-## Pyrite! 
+# Pyrite! 
+-- A blog generator 
+
 
 Testing can be performed by running 
 
