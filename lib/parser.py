@@ -14,7 +14,7 @@ def parse_yaml(md_str):
     tags: code, fun, python
     date: 2 August 2011, 2:00p GMT 
     --- 
-    // content // 
+    content
     """
     pass 
 
