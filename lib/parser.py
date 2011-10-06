@@ -15,9 +15,13 @@ def parse_yaml(md_str):
     date: 2 August 2011, 2:00p GMT 
     --- 
     content
+
+    Generally the grammar is 
+
+    Line:   TagName, Tag
+    ([a-zA-Z]): + 
     """
     pass 
-
 
 def parse_markdown(mk_str):
     pass
