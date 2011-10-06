@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (c) 2011 by Joshua Hoak, Aaron Deich, Alissa Pajer 
+# Copyright (c) 2011 by Joshua Hoak, Alissa Pajer 
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
@@ -13,15 +13,15 @@ def parse_yaml(md_str):
     title: Post
     tags: code, fun, python
     date: 2 August 2011, 2:00p GMT 
-    --- 
-    content
-
-    Generally the grammar is 
-
-    Line:   TagName, Tag
-    ([a-zA-Z]): + 
+    ... / more tags / ...
+    ---
+    Blog post content
     """
-    pass 
+    pass
+
+
+
+    
 
 def parse_markdown(mk_str):
     pass

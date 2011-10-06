@@ -1,4 +1,4 @@
-# Copyright (c) 2011 by Joshua Hoak, Aaron Deich, Alissa Pajer 
+# Copyright (c) 2011 by Joshua Hoak, Alissa Pajer 
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 

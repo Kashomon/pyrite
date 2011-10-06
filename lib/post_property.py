@@ -1,6 +1,6 @@
-# Copyright (c) 2011 by Joshua Hoak, Aaron Deich, Alissa Pajer 
+# Copyright (c) 2011 by Joshua Hoak, Alissa Pajer 
 # Licensed under the MIT License 
-# Author: Josh Hoak (jrhoak@gmail.com)
+# Authors: Josh Hoak (jrhoak@gmail.com)
 
 #TODO (josh): Perhaps properties should be in charge of their own parsing? 
 #TODO (josh): Perhaps each class should be its own file?
@@ -60,15 +60,3 @@ class Tags(PostProperty):
         for item in self.tags:
           output += PostProperty.compile(self, item)
         return output
-
-
-#print PostProperty.compile(PostProperty("class_goes_here"),"Content goes here.")
-#
-#print Title.compile(Title("Content of Title goes here."))
-#
-#print PostBody.compile(PostBody("Content of post goes here."))
-#
-#print Date.compile(Date(datetime.now()))
-#
-#print Tags.compile(Tags(["tag1", "tag2", "tag3"]))
-#
