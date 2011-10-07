@@ -1,5 +1,9 @@
 
-# Pyrite! 
+
+# Pyrite!
+
+AARON MADE AN EDIT
+ 
 -- A blog generator 
 
 
