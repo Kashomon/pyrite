@@ -12,16 +12,19 @@ class TestPostProperties(unittest.TestCase):
 
     def test_title_compile(self):
         title = post_property.Title("Title")
-        self.assertEqual(title.compile(), "<div class=\"post_title\">\nTitle\n</div>")
+        self.assertEqual(title.compile(), ("<div "
+                "class=\"post_title\">\nTitle\n</div>\n"))
 
     def test_post_body_compile(self):
         postbody = post_property.PostBody("Body")
-        self.assertEqual(postbody.compile(), "<div class=\"post_body\">\nBody\n</div>")
+        self.assertEqual(postbody.compile(), ("<div "
+                "class=\"post_body\">\nBody\n</div>\n"))
 
     def test_date_compile(self):
         now=datetime.now()
         date = post_property.Date(now)
-        self.assertEqual(date.compile(), "<div class=\"post_date\">\n"+str(now)+"\n</div>")
+        self.assertEqual(date.compile(), ("<div "  
+                "class=\"post_date\">\n"+str(now)+"\n</div>\n"))
 """
     def test_tags_compile(self):
         tags = post_property.PostBody("Body")

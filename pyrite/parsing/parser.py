@@ -3,12 +3,11 @@
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
-def parse_yaml(md_str):
+import re
+        
+def parse_yaml(yaml_str):
     """
-    Parse a yaml post and return a Post object
-
-    Generally, a YAML format similar to the Blogofile format is used:
-
+    Parse a YAML post and return a Post object
     ---
     title: Post
     tags: code, fun, python
@@ -17,11 +16,14 @@ def parse_yaml(md_str):
     ---
     Blog post content
     """
-    pass
+    out = {} 
+    sections =  yaml_str.split("---")
+    out["content"] = sections[2].strip()
+    for line in sections[1].split("\n"):
+        tag, splitter, data = line.partition(":")
+        out[tag.strip()] = data.strip()
+    return out 
 
-
-
-    
 
 def parse_markdown(mk_str):
     pass

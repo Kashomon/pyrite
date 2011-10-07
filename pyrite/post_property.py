@@ -18,7 +18,6 @@ class PostProperty:
     def compile(self, content):
         return "<div class=\"" + self.divId + "\">\n" +  content + "\n</div>\n"
 
-
 class Title(PostProperty):
     def __init__(self, title):
         PostProperty.__init__(self, "post_title")     # "post_title" is the HTML class of Title
