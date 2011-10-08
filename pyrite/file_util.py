@@ -4,11 +4,16 @@
 
 import os 
 
-class FileUtil:
-    def __init__(self, location):
-        pass
+def check_okdir(path):
+    return os.access(path, os.R_OK)
 
-    def writeFile(self, name, contents):  
-        outf = open(location + name, "w")  
-        outf.write(contents):
-        outf.close()
+def read_yaml_files(path):  
+    dir_list = os.listdir(path)
+    for fname in dir_list:
+        print fname
+
+def write_file(location, name, contents):  
+    outf = open(location + name, "w")  
+    outf.write(contents):
+    outf.close()
+
