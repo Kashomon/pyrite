@@ -1,9 +1,6 @@
 
-
 # Pyrite!
 
-AARON MADE AN EDIT
- 
 -- A blog generator 
 
 
@@ -15,3 +12,7 @@ or by running the python module nose....
 
 see: http://readthedocs.org/docs/nose/en/latest/
 
+
+### Current Contributors 
+Josh Hoak
+Allisa Pajer 
