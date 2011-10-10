@@ -15,4 +15,4 @@ see: http://readthedocs.org/docs/nose/en/latest/
 
 ### Current Contributors 
 Josh Hoak
-Allisa Pajer 
+Alissa Pajer 
