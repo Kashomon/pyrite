@@ -7,15 +7,20 @@
 Testing can be performed by running 
 
         python -m unittest discover
+        
+or
+
+        ./do_tests.sh
 
 or by running the python module nose....
 
 To create the pyrite.dot graph, install Graphviz and then run:
         
-        dot -Tpdf pyrite.dot -o pyrite.pdf
+        ./create_graphs.py
 
-see: http://readthedocs.org/docs/nose/en/latest/
-
+To cleanup vim files and pyc files, run
+    
+        ./cleanup
 
 ### Current Contributors 
 Josh Hoak
