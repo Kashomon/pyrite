@@ -2,6 +2,9 @@
 # Copyright (c) 2011 Joshua Hoak, Alissa Pajer
 # Licensed under the MIT License
 
-def creator():
-    pass
+import file_util 
+
+def creator(argdict):
+    contents = file_util.read_file(argdict["path"])
+    blog = paser
 
