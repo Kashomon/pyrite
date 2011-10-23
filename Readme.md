@@ -23,5 +23,6 @@ To cleanup vim files and pyc files, run
         ./cleanup
 
 ### Current Contributors 
-Josh Hoak
-Alissa Pajer 
+
+  * Josh Hoak
+  * Alissa Pajer 
