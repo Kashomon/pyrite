@@ -14,7 +14,7 @@ or
 
 or by running the python module nose....
 
-To create the pyrite.dot graph, install Graphviz and then run:
+To create the pyrite graph, install Graphviz and then run:
         
         ./create_graphs.py
 
