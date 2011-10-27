@@ -7,5 +7,5 @@ import parser.parser
 
 def creator(argdict):
     contents = file_util.read_file(argdict["path"])
-    blog = paser
+    blog = 
 
