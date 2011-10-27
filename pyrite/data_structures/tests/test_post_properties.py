@@ -6,23 +6,23 @@ import unittest
 
 from datetime import datetime
 
-from .. import post_property 
+from .. import post_properties 
 
 class TestPostProperties(unittest.TestCase):
 
     def test_title_compile(self):
-        title = post_property.Title("Title")
+        title = post_properties.Title("Title")
         self.assertEqual(title.compile(), ("<div "
                 "class=\"post_title\">\nTitle\n</div>\n"))
 
     def test_post_body_compile(self):
-        postbody = post_property.PostBody("Body")
+        postbody = post_properties.PostBody("Body")
         self.assertEqual(postbody.compile(), ("<div "
                 "class=\"post_body\">\nBody\n</div>\n"))
 
     def test_date_compile(self):
         now=datetime.now()
-        date = post_property.Date(now)
+        date = post_properties.Date(now)
         self.assertEqual(date.compile(), ("<div "  
                 "class=\"post_date\">\n"+str(now)+"\n</div>\n"))
 """
