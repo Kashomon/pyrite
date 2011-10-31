@@ -4,35 +4,14 @@
 # Author: Josh Hoak (jrhoak@gmail.com)
 
 import re
+import sys
+import parsers 
         
-def parse_yaml(yaml_str):
+def parse(string, parse_type):
     """
-    Parse a YAML post and return a Post object
-    ---
-    title: Post
-    tags: code, fun, python
-    date: 2 August 2011, 2:00p GMT 
-    ... / more tags / ...
-    ---
-    Blog post content
+    Parse the contents of a file.  The parse_type is determined. 
+
+    Returns: A Blog object 
     """
-    out = {} 
-    sections =  yaml_str.split("---")
-    out["content"] = sections[2].strip()
-    for line in sections[1].split("\n"):
-        tag, splitter, data = line.partition(":")
-        out[tag.strip()] = data.strip()
-    return out 
-
-
-def parse_markdown(mk_str):
-    pass
-
-def parse_html(html_str):
-    """
-    Takes HTML as string and returns a Post object
-
-    General expectation for HTML: TODO 
-    """ 
-    pass 
-
+    parse = parsers.get(parse_type)
+    return parse(string)
