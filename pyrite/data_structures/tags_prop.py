@@ -2,7 +2,7 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-from post_properties import PostProperty 
+from post_property import PostProperty 
 
 def parse(tags_raw): 
     return Tags(tags.split(","))
@@ -18,7 +18,7 @@ class Tags(PostProperty):
         PostProperty.__init__(self, "post_tags")
         self.tags = tags
 
-    def compile(self):
+    def generate(self):
         output = ""
         for item in self.tags:
           output += PostProperty.compile(self, item)

@@ -2,7 +2,7 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-from post_properties import PostProperty
+from post_property import PostProperty
 
 def parse(string): 
     return Title(string)
@@ -15,5 +15,8 @@ class Title(PostProperty):
         PostProperty.__init__(self, "post_title") 
         self.title = title
 
-    def compile(self):    # self.divId is the name of the HTML class
-        return PostProperty.compile(self, self.title)
+    def generate(self):    # self.divId is the name of the HTML class
+        return PostProperty.generate(self, self.title)
+
+    def to_string(self):
+        return self.title

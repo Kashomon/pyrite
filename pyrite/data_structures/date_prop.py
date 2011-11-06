@@ -2,24 +2,16 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-from post_properties import PostProperty 
+from datetime import datetime
+
+from post_property import PostProperty
 
 def parse(string):
-    parsed_date = None
-    try:
-        parsed_date = datetime.strptime(string, "%d/%m/%y")
-    except err:
-        pass
-
-    try:
-        parsed_date = datetime.strptime(string, "%d/%m/%y %H:%M")
-    except err
-        pass
-
+    parsed_date = _getDatetime(string)
     if parsed_date == None:
         raise Exception("Unknown date format: " + string)
     else:
-        return Date(String)
+        return Date(parsed_date)
 
 class Date(PostProperty):   
     """
@@ -33,5 +25,27 @@ class Date(PostProperty):
         PostProperty.__init__(self, "post_date")    
         self.date = date
 
-    def compile(self):    
-        return PostProperty.compile(self, str(self.date))
+    def generate(self):    
+        return PostProperty.generate(self, self.date.strftime("%Y-%m-%d"))
+
+    def to_string(self):
+        return self.date.strftime("%Y-%m-%d")
+
+
+def _getDatetime(string):  
+    parse_methods = ["%d/%m/%y", "%d/%m/%y %H:%M", "%d %B %Y"]
+    parsed_date = None
+    for method, index in zip(parse_methods, range(len(parse_methods))):
+        try: 
+            parsed_date = datetime.strptime(string, method) 
+        except: 
+            pass 
+
+        if parsed_date != None:
+            break
+
+    if parsed_date != None:
+        parse_methods = parse_methods.insert(0, parse_methods.pop(index))
+
+    return parsed_date
+

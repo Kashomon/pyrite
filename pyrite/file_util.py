@@ -18,8 +18,10 @@ def read_files(path):
     for fname in dir_list:
         print fname
 
-def write_file(location, name, contents):  
-    outf = open(location + name, "w")  
+def write_file(location, contents):  
+    outf = open(location, "w")  
     outf.write(contents)
     outf.close()
 
+def write(directory, name, extension, contents):  
+    write_file(directory + "/" + name + "." + extension, contents)

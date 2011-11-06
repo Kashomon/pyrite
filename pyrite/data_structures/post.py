@@ -3,15 +3,15 @@
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
-import post_properties 
-import content 
+import creator
+import content
 
 def parse(props_raw, content_raw): 
     post_properties = {}
-    for name, value in props_raw:
-        post_properties[name] = post_properties.createProperty(name, value)
-    content = Content.parse(content_raw)
-    return Post(post_properties, content)
+    for name, value in props_raw.iteritems():
+        post_properties[name] = creator.createProperty(name, value)
+    content_parsed = content.parse(content_raw)
+    return Post(post_properties, content_parsed)
          
 class Post:
     """
@@ -21,22 +21,31 @@ class Post:
     param content: a content object
 
     """
-    def __init__(self, post_properties, content):
+    def __init__(self, post_props, post_content):
         """
         Constructor should only be accessed by parse method.
         """
-        self.post_properties = post_properties
-        self.content = content
+        self.post_props = post_props
+        self.post_content = post_content
 
     def addTags(self, tags):
         self.tags = tags
  
-    def compile(self):
+    def generate(self):
+        ordering = ["title", "date", "tags"]
         compiled = ""
-        for name, prop in post_props:
-            compiled += prop.compile()
-        compiled += content.compile()
+        for prop in ordering:
+            if prop in self.post_props:
+                compiled += self.post_props[prop].generate()
+        compiled += self.post_content.generate()
         return compiled
 
-    def getDate(self):
-        return self.post_properties["date"]
+    def get_date(self):
+        return self.post_props["date"]
+
+    def get_title(self):
+        return self.post_props["title"]
+
+    def get_filename(self):
+        return self.get_date().to_string() + "-" + self.get_title().to_string()
+

@@ -2,6 +2,8 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
+from post_property import PostProperty
+
 def parse(string):
     # TODO(josh): Lots of meaty stuff to go here
     return Content(string)
@@ -14,6 +16,6 @@ class Content(PostProperty):
         PostProperty.__init__(self, "content")   
         self.postbody = postbody
 
-    def compile(self): 
-        return PostProperty.compile(self,self.postbody)
+    def generate(self): 
+        return PostProperty.generate(self,self.postbody)
 

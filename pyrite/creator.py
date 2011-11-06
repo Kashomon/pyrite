@@ -12,4 +12,5 @@ def create(fileloc):
         print("Couldn't find file %s" % fileloc) 
         sys.exit(2) 
     blog = parser.parse(contents, "yaml")
+    print blog.generate() 
      

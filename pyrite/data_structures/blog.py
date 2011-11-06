@@ -6,11 +6,12 @@
 # Note: the Blog class was called Posts
 
 import post 
+from .file_util import write
 
 def parse(raw_posts):
     posts = []
     for props_raw, content_raw in raw_posts:
-        posts.add(post.parse(props_raw, content_raw))
+        posts.append(post.parse(props_raw, content_raw))
     return Blog(posts)
 
 class Blog: 
@@ -23,7 +24,13 @@ class Blog:
     def __init__(self, posts):
         self.posts = posts
 
-    def compile(self): 
+    def generate(self, location=None): 
+        compiled_posts = [] 
         for post in self.posts:
-            # write to disk 
-            pass
+            compiled_posts.append( (post.get_filename(), post.generate()) )
+        if location != None:
+            for fname, content in compiled_posts:
+                file_util.write(location, fname, "html", content)
+        return compiled_posts 
+
+
