@@ -6,7 +6,7 @@
 import re
 import sys
 
-from ..data_strustures import post
+from ..data_structures import blog
         
 def parse(string, parse_type):
     """
@@ -42,7 +42,9 @@ def parse_yaml(yaml_str):
     for line in sections[1].split("\n"):
         tag, splitter, data = line.partition(":")
         out[tag.strip()] = data.strip()
-    return out 
+
+    postlist_raw = [ (out, content) ]
+    return blog.parse(postlist_raw) 
 
 def parse_markdown(mk_str):
     pass

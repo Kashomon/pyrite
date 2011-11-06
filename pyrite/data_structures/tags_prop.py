@@ -4,11 +4,17 @@
 
 from post_properties import PostProperty 
 
+def parse(tags_raw): 
+    return Tags(tags.split(","))
+
 class Tags(PostProperty):
     """
     Stores a list of topic-tags
     """
     def __init__(self, tags):
+        """
+        Constructor should only be accessed by parse method.
+        """
         PostProperty.__init__(self, "post_tags")
         self.tags = tags
 

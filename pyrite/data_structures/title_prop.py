@@ -4,11 +4,10 @@
 
 from post_properties import PostProperty
 
-class Title(PostProperty):
-    @staticmethod
-    def parse(string): 
-        return Title(string)
+def parse(string): 
+    return Title(string)
 
+class Title(PostProperty):
     def __init__(self, title):
         """
         Constructor should be only accessed by parse method.

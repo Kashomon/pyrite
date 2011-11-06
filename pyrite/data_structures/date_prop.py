@@ -4,29 +4,28 @@
 
 from post_properties import PostProperty 
 
+def parse(string):
+    parsed_date = None
+    try:
+        parsed_date = datetime.strptime(string, "%d/%m/%y")
+    except err:
+        pass
+
+    try:
+        parsed_date = datetime.strptime(string, "%d/%m/%y %H:%M")
+    except err
+        pass
+
+    if parsed_date == None:
+        raise Exception("Unknown date format: " + string)
+    else:
+        return Date(String)
+
 class Date(PostProperty):   
     """
     The Date Property stores a Date object locally until it comes time to
     create the HTML post, in which case it renders as a String 
     """
-    @staticmethod
-    def parse(string):
-        parsed_date = None
-        try:
-            parsed_date = datetime.strptime(string, "%d/%m/%y")
-        except err:
-            pass
-
-        try:
-            parsed_date = datetime.strptime(string, "%d/%m/%y %H:%M")
-        except err
-            pass
-
-        if parsed_date == None:
-            raise Exception("Unknown date format: " + string)
-        else:
-            return Date(String)
- 
     def __init__(self, date):
         """
         Constructor should be accessed by parse method.
