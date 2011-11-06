@@ -2,15 +2,27 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-#TODO (josh): Perhaps properties should be in charge of their own parsing? 
-#TODO (josh): Perhaps each class should be its own file?
+from date_prop import Date
+from tags_prop import Tags
+from title_prop import Title
 
 from datetime import datetime
 
+def createProperty(name, value):
+    lname = name.lower()
+    if lname == "title":
+        return Title.parse(value)
+    elif lname == "date": 
+        return Date.parse(value)
+    elif lname == "tags":
+        return Tags.parse(value)
+    else:
+        raise Exception("Unknown property: %s" % name)
+
 class PostProperty:
     """
-    Defines a property of a post.  All properties get their own div class and
-    get rendered as HTML.
+    Defines a property of a post: a sort of abstract class.   All properties
+    get their own div class and get rendered as HTML.
     """
     def __init__(self, divId):  
         self.divId = divId  
@@ -18,44 +30,3 @@ class PostProperty:
     def compile(self, content):
         return "<div class=\"" + self.divId + "\">\n" +  content + "\n</div>\n"
 
-class Title(PostProperty):
-    def __init__(self, title):
-        PostProperty.__init__(self, "post_title")     # "post_title" is the HTML class of Title
-        self.title = title
-
-    def compile(self):    # self.divId is the name of the HTML class
-        return PostProperty.compile(self, self.title)
-
-class PostBody(PostProperty):
-    def __init__(self, postbody):
-        PostProperty.__init__(self, "post_body")    # "post_body" is the HTML class of PostBody
-        self.postbody = postbody
-
-    def compile(self): 
-        return PostProperty.compile(self,self.postbody)
-
-class Date(PostProperty):    # the instance of Date which returns the current datetime is Date(now)
-    """
-    The Date Property stores a Date object locally until it comes time to
-    create the HTML post, in which case it renders as a String 
-    """
-    def __init__(self, date):
-        PostProperty.__init__(self, "post_date")    # "post_date" is the HTML class of PostBody
-        self.date = date
-
-    def compile(self):    
-        return PostProperty.compile(self, str(self.date))
-
-class Tags(PostProperty):
-    """
-    Stores a list of topic-tags
-    """
-    def __init__(self, tags):
-        PostProperty.__init__(self, "post_tags")    # "post_tags" is the HTML class of Tags
-        self.tags = tags
-
-    def compile(self):
-        output = ""
-        for item in self.tags:
-          output += PostProperty.compile(self, item)
-        return output

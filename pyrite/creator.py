@@ -3,9 +3,13 @@
 # Licensed under the MIT License
 
 import file_util 
-import parser.parser
+from parsing import parser 
+import sys
 
-def creator(argdict):
-    contents = file_util.read_file(argdict["path"])
-    blog = parser.parse_yaml(contents)
+def create(fileloc):
+    contents = file_util.read_file(fileloc)
+    if contents == "":
+        print("Couldn't find file %s" % fileloc) 
+        sys.exit(2) 
+    blog = parser.parse(contents, "yaml")
      

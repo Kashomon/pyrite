@@ -3,23 +3,33 @@
 # Licensed under the MIT License
 
 import sys
+import creator 
+import getopt
 
 def main(argv=None):
-    if argv is None: argv = sys.argv[1:]
-    argdict = process_args(argv)
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "test"])
+    except getopt.GetoptError, err:
+        displayHelp()
+        print str(err)
+        sys.exit(2)
+    for o, a in opts:
+        if o == "-h":
+            displayHelp()
+        if o == "--test":
+            creator.create("test_files/testblog.yaml")
+            sys.exit(1)
+        else:
+            assert False, "Unknown option"  + o
 
-#TODO(jhoak): Consider using getopt for arg processing 
-def process_args(args):
-    out = {} 
     if len(args) == 0:
-        print "Usage: <dirname> <opts>"
+        displayHelp()
         sys.exit(1)
-   
-    if len(args) == 1:
-        out["path"] = args[0]
-    else:
-        print("Unfortunately, only have path-processing at the moment")
-        sys.exit(1)
+
+    creator.create(args[0])
+
+def displayHelp():
+    print "Usage: <dirname> <opts>"
 
 # Execut the main func
 if __name__ == "__main__":

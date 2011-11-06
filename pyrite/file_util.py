@@ -8,7 +8,7 @@ def check_okdir(path):
     return os.access(path, os.R_OK)
 
 def read_file(name):
-    infile = open(location + name, "r")
+    infile = open(name, "r")
     contents = infile.read()
     infile.close()
     return contents
