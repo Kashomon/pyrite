@@ -6,7 +6,7 @@
 # Note: the Blog class was called Posts
 
 import post 
-from .file_util import write
+from file_util import write
 
 def parse(raw_posts):
     posts = []
@@ -20,7 +20,6 @@ class Blog:
 
     Note there should 
     """
-
     def __init__(self, posts):
         self.posts = posts
 
@@ -30,7 +29,7 @@ class Blog:
             compiled_posts.append( (post.get_filename(), post.generate()) )
         if location != None:
             for fname, content in compiled_posts:
-                file_util.write(location, fname, "html", content)
+                write(location, fname, "html", content)
         return compiled_posts 
 
 

@@ -7,26 +7,33 @@ import creator
 import getopt
 
 def main(argv=None):
+    default_loc = None
+    out_dir = "blog"
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "test"])
+        opts, args = getopt.getopt(sys.argv[1:], "oh", ["help", "test"])
     except getopt.GetoptError, err:
         displayHelp()
         print str(err)
         sys.exit(2)
-    for o, a in opts:
-        if o == "-h":
+    for o, v in opts:
+        if o == "-h" or o == "--help":
             displayHelp()
-        if o == "--test":
-            creator.create("test_files/testblog.yaml")
-            sys.exit(1)
+        elif o == "--test":
+            default_loc = "test_files/"
+            out_dir = "test_files/test_blog_dir"
+        elif o == "-o":
+            out_dir = v
         else:
             assert False, "Unknown option"  + o
 
-    if len(args) == 0:
+    if len(args) == 0 and default_loc == None:
         displayHelp()
         sys.exit(1)
 
-    creator.create(args[0])
+    if default_loc != None:
+        creator.create(default_loc, out_dir)
+    else: 
+        creator.create(args[0], out_dir)
 
 def displayHelp():
     print "Usage: <dirname> <opts>"

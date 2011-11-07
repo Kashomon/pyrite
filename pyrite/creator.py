@@ -3,14 +3,30 @@
 # Licensed under the MIT License
 
 import file_util 
-from parsing import parser 
 import sys
+import os 
 
-def create(fileloc):
-    contents = file_util.read_file(fileloc)
+from parsing import parser 
+
+def create(fileloc, out_dir):
+    ## TODO : read an entire dir 
+    contents = file_util.read_files(fileloc)
     if contents == "":
         print("Couldn't find file %s" % fileloc) 
         sys.exit(2) 
     blog = parser.parse(contents, "yaml")
-    print blog.generate() 
+
+    # The generation phase 
+    make_pyrite_dirs(out_dir)
+    blog.generate(out_dir) 
+
+def make_pyrite_dirs(root_dir):
+    to_create = root_dir.rstrip("/")
+    makedirs_quiet(to_create + "/css")
+    makedirs_quiet(to_create + "/js")
      
+def makedirs_quiet(path):
+    try: 
+        os.makedirs(path)
+    except:
+        pass

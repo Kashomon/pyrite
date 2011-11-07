@@ -25,3 +25,4 @@ def write_file(location, contents):
 
 def write(directory, name, extension, contents):  
     write_file(directory + "/" + name + "." + extension, contents)
+
