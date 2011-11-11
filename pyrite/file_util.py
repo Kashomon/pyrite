@@ -14,9 +14,14 @@ def read_file(name):
     return contents
 
 def read_files(path):  
+    if not path.endswith("/"):
+        path = path + "/"
+    print(path)
     dir_list = os.listdir(path)
+    out = [] 
     for fname in dir_list:
-        print fname
+        out.append(read_file(path + fname))
+    return out
 
 def write_file(location, contents):  
     outf = open(location, "w")  

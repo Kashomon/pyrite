@@ -4,9 +4,13 @@
 
 from post_property import PostProperty
 
-def parse(string):
-    # TODO(josh): Lots of meaty stuff to go here
-    return Content(string)
+class ContentParser:
+    def __init__(self, parse_type):
+        pass
+
+    def parse(self, string):
+        # TODO(josh): Lots of meaty stuff to go here
+        return Content(string)
 
 class Content(PostProperty):
     def __init__(self, postbody):

@@ -4,8 +4,12 @@
 
 from post_property import PostProperty 
 
-def parse(tags_raw): 
-    return Tags(tags.split(","))
+class TagsParser:
+    def __init__(self, parse_type):
+        pass
+
+    def parse(self, tags_raw): 
+        return Tags(tags.split(","))
 
 class Tags(PostProperty):
     """

@@ -3,15 +3,20 @@
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
-import creator
+import properties
 import content
 
-def parse(props_raw, content_raw): 
-    post_properties = {}
-    for name, value in props_raw.iteritems():
-        post_properties[name] = creator.createProperty(name, value)
-    content_parsed = content.parse(content_raw)
-    return Post(post_properties, content_parsed)
+class PostParser: 
+    def __init__(self, parse_type):
+        self.content_parser = content.ContentParser(parse_type)
+        self.properties_parser = properties.PropertiesParser(parse_type)
+
+    def parse(self, props_raw, content_raw): 
+        post_properties = {}
+        for name, value in props_raw.iteritems():
+            post_properties[name] = self.properties_parser.parse(name, value)
+        content_parsed = self.content_parser.parse(content_raw)
+        return Post(post_properties, content_parsed)
          
 class Post:
     """
@@ -27,9 +32,6 @@ class Post:
         """
         self.post_props = post_props
         self.post_content = post_content
-
-    def addTags(self, tags):
-        self.tags = tags
  
     def generate(self):
         ordering = ["title", "date", "tags"]

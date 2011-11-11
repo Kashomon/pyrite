@@ -9,12 +9,19 @@ import os
 from parsing import parser 
 
 def create(fileloc, out_dir):
-    ## TODO : read an entire dir 
-    contents = file_util.read_files(fileloc)
+    contents =""
+    if os.path.isdir(fileloc):
+        print file_util.read_files(fileloc) 
+        sys.exit(0)
+    else:
+        contents = file_util.read_file(fileloc)
+
     if contents == "":
         print("Couldn't find file %s" % fileloc) 
         sys.exit(2) 
-    blog = parser.parse(contents, "yaml")
+
+    blog_parser = parser.buildParser("yaml")
+    blog = blog_parser.parse(contents)
 
     # The generation phase 
     make_pyrite_dirs(out_dir)

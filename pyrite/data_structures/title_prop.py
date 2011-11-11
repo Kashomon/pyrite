@@ -4,8 +4,12 @@
 
 from post_property import PostProperty
 
-def parse(string): 
-    return Title(string)
+class TitleParser:
+    def __init__(self, parse_type):
+        pass
+
+    def parse(self, string): 
+        return Title(string)
 
 class Title(PostProperty):
     def __init__(self, title):

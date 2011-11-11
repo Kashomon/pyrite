@@ -8,52 +8,54 @@ import sys
 
 from .data_structures import blog
         
-def parse(string, parse_type):
-    """
-    Parse the contents of a file.  The parse_type is determined. 
+def buildParser(parse_type): 
+    return Parser(parse_type)
 
-    Returns: A Blog object 
-    """
-    parser = get(parse_type)
-    return parser(string)
+class Parser: 
+    def __init__(self, parse_type):
+        self.blog_parser = blog.BlogParser(parse_type)
+        self.parse = self.toplevel_parser(parse_type)
 
-def get(parse_type):
-    if parse_type == "yaml":
-        return parse_yaml
-    else:
-        print("Unknown file type")
-        sys.exit();
+    def toplevel_parser(self, parse_type):
+        if parse_type == "yaml":
+            return self.parse_yaml
+        else:
+            print("Unknown file type")
+            sys.exit();
 
-def parse_yaml(yaml_str):
-    """
-    Parse a YAML post and return a Post object
-    ---
-    title: Post
-    tags: code, fun, python
-    date: 2 August 2011, 2:00
-    ... / more tags / ...
-    ---
-    Blog post content
-    """
-    sections =  yaml_str.split("---")
-    content_raw = sections[2].strip()
+    #######################################
+    # Below are the type-specific parsers #
+    #######################################
+    def parse_yaml(self, yaml_str):
+        """
+        Parse a YAML post and return a Post object
+        ---
+        title: Post
+        tags: code, fun, python
+        date: 2 August 2011, 2:00
+        ... / more tags / ...
+        ---
+        Blog post content
+        """
+        sections =  yaml_str.split("---")
+        content_raw = sections[2].strip()
 
-    tags_raw = {} 
-    for line in sections[1].strip().split("\n"):
-        tag, splitter, data = line.partition(":")
-        tags_raw[tag.strip()] = data.strip()
+        tags_raw = {} 
+        for line in sections[1].strip().split("\n"):
+            tag, splitter, data = line.partition(":")
+            tags_raw[tag.strip()] = data.strip()
 
-    postlist_raw = [ (tags_raw, content_raw) ]
-    return blog.parse(postlist_raw) 
+        postlist_raw = [ (tags_raw, content_raw) ]
+        return self.blog_parser.parse(postlist_raw) 
 
-def parse_markdown(mk_str):
-    pass
+    def parse_markdown(self, md_str):
+        pass
 
-def parse_html(html_str):
-    """
-    Takes HTML as string and returns a Post object
+    def parse_html(self, html_str):
+        """
+        Takes HTML as string and returns a Post object
 
-    General expectation for HTML: TODO 
-    """ 
-    pass 
+        General expectation for HTML: TODO 
+        """ 
+        pass 
 
