@@ -8,15 +8,15 @@ import os
 
 from parsing import parser 
 
-def create(fileloc, out_dir):
-    contents = ""
+def create(input_dir, out_dir):
+    contents = []
     if os.path.isdir(fileloc):
-        contents = file_util.read_files(fileloc) 
+        contents = file_util.read_files(input_dir) 
     else:
-        contents = [ file_util.read_file(fileloc) ]
+        contents = [ file_util.read_file(input_dir) ]
 
-    if contents == "":
-        raise Exception("Couldn't find file(s): %s" % fileloc) 
+    if contents == []:
+        raise Exception("Couldn't find file(s): %s" % input_dir) 
 
     blog_parser = parser.buildParser("yaml")
     blog = blog_parser.parse(contents)
