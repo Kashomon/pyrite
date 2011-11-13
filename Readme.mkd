@@ -25,8 +25,17 @@ We begin with main.py. Try typing
         ./main.py [options]   
 
 main.py will read all the files in the specified directory that end in .yaml. Which stands for Yet Another Markup Language. 
+Once main.py figures out which directories will be input and output, main.py
+calls the method 
 
+      create(inputDir, outputDir)  # may take more arguments later
 
+in creator.py. Create method is where all the magic happens. 
+What happens next is that the create method reads all the .yaml files from input directory. 
+
+Next, for each file, creator makes a string for each input file. 
+Sidenote: each file here represents at least one blogpost.
+Then creator takes this list of raw strings, and converts it into an abstract syntax tree; one that represents a blog. 
 
 ### Notes
 Link to how markdown format works: http://daringfireball.net/projects/markdown/basics  
