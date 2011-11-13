@@ -21,6 +21,7 @@ To cleanup vim files and pyc files, run
 ### Summary of how pyrite works
 Our tour begins in pyrite/pyrite. 
 We begin with main.py. Try typing
+
         ./main.py [options]   
 
 
