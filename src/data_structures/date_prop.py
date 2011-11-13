@@ -28,8 +28,8 @@ class DateParser:
             if parsed_date != None:
                 break
 
-        #This doesn't work quite yet:
-        #if parsed_date != None:
+        # This doesn't work quite yet:
+        # if parsed_date != None:
         #    self.parse_methods = self.parse_methods.insert(0, 
         #            parse_methods.pop(index))
 
@@ -56,3 +56,13 @@ class Date(PostProperty):
     def display_ast(self, indents):
         indenting = indents * "  "
         return indenting + "Date:" + self.to_string() + "\n"
+
+# Utility Methods 
+
+def num_to_month(num): 
+    num_dict = {
+            1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June",
+            7:"July", 8:"August", 9:"September",10:"October",11:"November",
+            12:"December"
+            }
+    return num_dict.get(num)

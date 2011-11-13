@@ -43,11 +43,21 @@ class Post:
                 compiled += self.post_props[prop].generate()
         return compiled + self.post_content.generate()
 
+    # Random getting-methods: Should remove?
     def get_date(self):
         return self.post_props["date"]
 
+    def get_datetime(self):
+        return self.post_props["date"].date
+
     def get_title(self):
         return self.post_props["title"]
+
+    def get_tags(self):
+        return self.post_props["tags"].tags
+
+    def get_id(self):
+        return self.get_filename()
 
     def get_filename(self):
         return self.get_date().to_string() + "-" + self.get_title().to_string()

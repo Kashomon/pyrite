@@ -11,7 +11,7 @@ def main(argv=None):
     out_dir = "blog"
     try:
         opts, args = getopt.getopt(sys.argv[1:], "oh", ["help", "test",
-            "test2", "testfile"])
+            "stress"])
     except getopt.GetoptError, err:
         displayHelp()
         print str(err)
@@ -19,16 +19,13 @@ def main(argv=None):
     for o, v in opts:
         if o == "-h" or o == "--help":
             displayHelp()
-        elif o == "--testfile":
-            default_loc = "test_files/testblog.yaml"
-            out_dir = "test_files/test_blog_dir"
         elif o == "--test":
             default_loc = "test_files"
             out_dir = "test_files/test_blog_dir"
             break
-        elif o == "--test2":
-            default_loc = "test_files/secondpost.yaml"
-            out_dir = "test_files/test_blog_dir"
+        elif o == "--stress":
+            default_loc = "stress_files"
+            out_dir = "stress_files/test_blog_dir"
             break
         elif o == "-o":
             out_dir = v
