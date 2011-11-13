@@ -33,7 +33,7 @@ class Post:
         """
         self.post_props = post_props
         self.post_content = post_content
-        self.post_id = self.get_filename() 
+        self.post_id = self.get_filename()
  
     def generate(self):
         ordering = ["title", "date", "tags"]

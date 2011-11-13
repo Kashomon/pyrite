@@ -40,21 +40,17 @@ class Parser:
         postlist_raw = []
 
         for string in yaml_strs: 
-
             sections =  string.split("---")
             labels_raw = {}
 
             for section in sections: 
-
                 stripped = section.strip()
                 if stripped == "": continue # Discard empty sections 
-
                 if labels_raw == {}:
                     # Do some basic parsing of the labels
                     for line in stripped.split("\n"): 
                         label, splitter, data = line.partition(":")
                         labels_raw[label.strip()] = data.strip()
-
                 else:
                     # Append a new labels and content pair
                     postlist_raw.append((labels_raw, stripped))
