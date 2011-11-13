@@ -10,7 +10,7 @@ from parsing import parser
 
 def create(input_dir, out_dir):
     contents = []
-    if os.path.isdir(fileloc):
+    if os.path.isdir(input_dir):
         contents = file_util.read_files(input_dir) 
     else:
         contents = [ file_util.read_file(input_dir) ]
