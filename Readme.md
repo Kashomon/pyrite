@@ -12,7 +12,7 @@ or
 
         ./do_tests.sh
 
-or by running the python module nose....
+or by running the python module nose...
 
 To cleanup vim files and pyc files, run
     
