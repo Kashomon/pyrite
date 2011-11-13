@@ -22,3 +22,4 @@ To cleanup vim files and pyc files, run
 
   * Josh Hoak
   * Alissa Pajer 
+  * Aaron Deich
