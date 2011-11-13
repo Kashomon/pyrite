@@ -24,6 +24,8 @@ We begin with main.py. Try typing
 
         ./main.py [options]   
 
+main.py will read all the files in the specified directory that end in .yaml. Which stands for Yet Another Markup Language. 
+
 
 
 ### Notes
