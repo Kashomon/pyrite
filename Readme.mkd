@@ -19,7 +19,14 @@ To cleanup vim files and pyc files, run
         ./cleanup
 
 ### Summary of how pyrite works
+Our tour begins in pyrite/pyrite. 
+We begin with main.py. Try typing
+        ./main.py [options]   
 
+
+
+### Notes
+Link to how markdown format works: http://daringfireball.net/projects/markdown/basics  
  
 
 
