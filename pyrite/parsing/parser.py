@@ -26,7 +26,7 @@ class Parser:
     #######################################
     # Below are the type-specific parsers #
     #######################################
-    def parse_yaml(self, yaml_str):
+    def parse_yaml(self, yaml_strs):
         """
         Parse a YAML post and return a Post object
         ---
@@ -37,19 +37,33 @@ class Parser:
         ---
         Blog post content
         """
-        sections =  yaml_str.split("---")
-        content_raw = sections[2].strip()
+        postlist_raw = []
 
-        tags_raw = {} 
-        for line in sections[1].strip().split("\n"):
-            tag, splitter, data = line.partition(":")
-            tags_raw[tag.strip()] = data.strip()
+        for string in yaml_strs: 
 
-        postlist_raw = [ (tags_raw, content_raw) ]
+            sections =  string.split("---")
+            labels_raw = {}
+
+            for section in sections: 
+
+                stripped = section.strip()
+                if stripped == "": continue # Discard empty sections 
+
+                if labels_raw == {}:
+                    # Do some basic parsing of the labels
+                    for line in stripped.split("\n"): 
+                        label, splitter, data = line.partition(":")
+                        labels_raw[label.strip()] = data.strip()
+
+                else:
+                    # Append a new labels and content pair
+                    postlist_raw.append((labels_raw, stripped))
+                    labels_raw = {}
+
         return self.blog_parser.parse(postlist_raw) 
 
     def parse_markdown(self, md_str):
-        pass
+        raise Exception("Not implemented yet")
 
     def parse_html(self, html_str):
         """
@@ -57,5 +71,4 @@ class Parser:
 
         General expectation for HTML: TODO 
         """ 
-        pass 
-
+        raise Exception("Not implemented yet")

@@ -9,7 +9,7 @@ class TagsParser:
         pass
 
     def parse(self, tags_raw): 
-        return Tags(tags.split(","))
+        return Tags(tags_raw.split(","))
 
 class Tags(PostProperty):
     """
@@ -25,5 +25,9 @@ class Tags(PostProperty):
     def generate(self):
         output = ""
         for item in self.tags:
-          output += PostProperty.compile(self, item)
+          output += PostProperty.generate(self, item)
         return output
+
+    def display_ast(self, indents):
+        indenting = indents * "  "
+        return indenting + "Tags:" + str(self.tags) + "\n"

@@ -30,6 +30,7 @@ class Blog:
     """
     def __init__(self, posts):
         self.posts = posts
+        self.title = "BlogoTest"
 
     def generate(self, location=None): 
         compiled_posts = [] 
@@ -40,4 +41,8 @@ class Blog:
                 write(location, fname, "html", content)
         return compiled_posts 
 
-
+    def display_ast(self):
+        out = "Blog: " + self.title + "\n"
+        for post in self.posts:
+            out += post.display_ast(1)
+        return out.strip()

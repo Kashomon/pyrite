@@ -5,6 +5,7 @@
 
 import properties
 import content
+import random 
 
 class PostParser: 
     def __init__(self, parse_type):
@@ -32,6 +33,7 @@ class Post:
         """
         self.post_props = post_props
         self.post_content = post_content
+        self.post_id = self.get_filename() 
  
     def generate(self):
         ordering = ["title", "date", "tags"]
@@ -39,8 +41,7 @@ class Post:
         for prop in ordering:
             if prop in self.post_props:
                 compiled += self.post_props[prop].generate()
-        compiled += self.post_content.generate()
-        return compiled
+        return compiled + self.post_content.generate()
 
     def get_date(self):
         return self.post_props["date"]
@@ -50,4 +51,10 @@ class Post:
 
     def get_filename(self):
         return self.get_date().to_string() + "-" + self.get_title().to_string()
+
+    def display_ast(self, indents):
+        out = indents * "  " + "Post: " + self.post_id + "\n"
+        for propname, propvalue in self.post_props.iteritems():
+            out += propvalue.display_ast(indents + 1)
+        return out + self.post_content.display_ast(indents + 1) + "\n"
 

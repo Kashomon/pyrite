@@ -24,3 +24,7 @@ class Title(PostProperty):
 
     def to_string(self):
         return self.title
+
+    def display_ast(self, indents):
+        indenting = indents * "  "
+        return indenting + "Title:" + self.to_string() + "\n"

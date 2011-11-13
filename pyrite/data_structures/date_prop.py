@@ -53,4 +53,6 @@ class Date(PostProperty):
     def to_string(self):
         return self.date.strftime("%Y-%m-%d")
 
-
+    def display_ast(self, indents):
+        indenting = indents * "  "
+        return indenting + "Date:" + self.to_string() + "\n"

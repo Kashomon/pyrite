@@ -10,7 +10,7 @@ class ContentParser:
 
     def parse(self, string):
         # TODO(josh): Lots of meaty stuff to go here
-        return Content(string)
+        return Content(string.strip())
 
 class Content(PostProperty):
     def __init__(self, postbody):
@@ -18,8 +18,16 @@ class Content(PostProperty):
         Constructor should only be accessed by parse method.
         """
         PostProperty.__init__(self, "content")   
-        self.postbody = postbody
+        self.post_content = postbody
 
     def generate(self): 
         return PostProperty.generate(self,self.postbody)
+
+    def display_ast(self, indents):
+        indenting = indents * "  "
+        return (indenting + "Content:" +
+                self.post_content.replace("\n", "\n" + indenting) + "\n")
+
+
+         
 
