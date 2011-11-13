@@ -18,6 +18,11 @@ To cleanup vim files and pyc files, run
     
         ./cleanup
 
+### Aaron makes a summary of how pyrite works, for his edification
+
+
+
+
 ### Current Contributors 
 
   * Josh Hoak
