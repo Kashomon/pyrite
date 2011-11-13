@@ -14,10 +14,6 @@ or
 
 or by running the python module nose....
 
-To create the pyrite graph, install Graphviz and then run:
-        
-        ./create_graphs.py
-
 To cleanup vim files and pyc files, run
     
         ./cleanup
