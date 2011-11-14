@@ -7,15 +7,17 @@ import creator
 import getopt
 
 def main(argv=None):
-    default_loc = None
-    out_dir = "blog"
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "oh", ["help", "test",
-            "stress"])
+        opts, args = getopt.getopt(sys.argv[1:], "ohi", ["help", "test",
+            "stress", "init"])
     except getopt.GetoptError, err:
         displayHelp()
         print str(err)
         sys.exit(2)
+
+    default_loc = None
+    out_dir = "blog"
+    init_dir = False
     for o, v in opts:
         if o == "-h" or o == "--help":
             displayHelp()
@@ -29,12 +31,18 @@ def main(argv=None):
             break
         elif o == "-o":
             out_dir = v
+        elif o == "--init" or "-i":
+            init_dir = True
         else:
             assert False, "Unknown option"  + o
 
     if len(args) == 0 and default_loc == None:
         displayHelp()
         sys.exit(1)
+
+    if init_dir:
+        creator.init_dir()
+        sys.exit(0)
 
     if default_loc != None:
         creator.create(default_loc, out_dir)

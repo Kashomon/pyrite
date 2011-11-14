@@ -5,6 +5,7 @@
 import file_util 
 import sys
 import os 
+import default_options
 
 from parsing import parser 
 
@@ -32,24 +33,24 @@ def create(input_dir, out_dir):
     # Create the links 
     blog.create_links()
 
-    #print blog.display_ast()
+    # Display the AST (for the curious)
+    print default_options.BLOG_NAME
+    print blog.display_ast()
 
     # Create the necessary pyrite directories 
-    make_pyrite_dirs(out_dir)
+    # make_pyrite_dirs(out_dir)
+    
 
     # Generate the blog files 
-    blog.generate(out_dir) 
+    # blog.generate(out_dir) 
 
 def make_pyrite_dirs(root_dir):
     to_create = root_dir.rstrip("/")
-    makedirs_quiet(to_create + "/css")
-    makedirs_quiet(to_create + "/js")
+    file_util.makedirs_quiet(to_create + "/css")
+    file_util.makedirs_quiet(to_create + "/js")
 
-def clear():
+def clear(root_dir):
     pass
      
-def makedirs_quiet(path):
-    try: 
-        os.makedirs(path)
-    except:
-        pass
+def init_dir():
+    raise Exception("Not implemented yet")

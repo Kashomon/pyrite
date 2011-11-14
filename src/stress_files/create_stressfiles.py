@@ -71,7 +71,7 @@ date: 13 November 2011
 %s
 """
 
-for i in range(1000):
+for i in range(10000):
     
     out = open("file_" + str(i) + ".yaml", "w")
 
