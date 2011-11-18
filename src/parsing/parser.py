@@ -8,12 +8,12 @@ import sys
 
 from .data_structures import blog
         
-def buildParser(parse_type): 
-    return Parser(parse_type)
+def buildParser(parse_type, options): 
+    return Parser(parse_type, options)
 
 class Parser: 
-    def __init__(self, parse_type):
-        self.blog_parser = blog.BlogParser(parse_type)
+    def __init__(self, parse_type, options):
+        self.blog_parser = blog.BlogParser(parse_type, options)
         self.parse = self.toplevel_parser(parse_type)
 
     def toplevel_parser(self, parse_type):
