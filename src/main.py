@@ -2,54 +2,66 @@
 # Copyright (c) 2011 Joshua Hoak, Alissa Pajer
 # Licensed under the MIT License
 
-import sys
 import creator 
+
+# Argparse is the right way to do things
+import argparse 
+import os
+import sys
 import getopt
 
 def main(argv=None):
+    
+    """
+    parser = argparse.ArgumentParser(
+            description='Pyrite: A static blog generator!')
+    parser.add_argument(
+        'In Directory', metavar="F", default=os.getcwd(),
+        help=('The input directory. Default is the current working directory'))
+    parser.add_argument('--test', help='Run the pyrite test')
+    args = parser.parse_args(argv)
+
+    print args
+    sys.exit(1)
+    """
+
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ohi", ["help", "test",
+        opts, args = getopt.getopt(sys.argv[1:], "ohinc", ["help", "test",
             "stress", "init"])
     except getopt.GetoptError, err:
         displayHelp()
         print str(err)
         sys.exit(2)
 
-    default_loc = None
-    out_dir = "blog"
-    init_dir = False
+    arg_hash = { 
+        'in_dir': os.getcwd(),
+        'out_dir': os.path.join(os.getcwd(), 'pyrite_blog'),
+        'do_init': False,
+        'verbosity': 0
+    } 
+
+    print arg_hash
+
     for o, v in opts:
         if o == "-h" or o == "--help":
-            displayHelp()
+            display_help()
+            sys.exit(1)
         elif o == "--test":
-            default_loc = "test_files"
-            out_dir = "test_files/test_blog_dir"
+            arg_hash['in_dir'] = "test_files"
+            arg_hash['out_dir'] = "test_files/test_blog_dir"
             break
         elif o == "--stress":
-            default_loc = "stress_files"
-            out_dir = "stress_files/test_blog_dir"
+            arg_hash['in_dir'] = "stress_files"
+            arg_hash['out_dir'] = "stress_files/test_blog_dir"
             break
         elif o == "-o":
-            out_dir = v
-        elif o == "--init" or "-i":
-            init_dir = True
+            arg_hash['out_dir'] = v
         else:
             assert False, "Unknown option"  + o
 
-    if len(args) == 0 and default_loc == None:
-        displayHelp()
-        sys.exit(1)
+    creator.create(arg_hash)
 
-    if init_dir:
-        creator.init_dir()
-        sys.exit(0)
-
-    if default_loc != None:
-        creator.create(default_loc, out_dir)
-    else: 
-        creator.create(args[0], out_dir)
-
-def displayHelp():
+def display_help():
     print "Usage: <dirname> <opts>"
 
 # Execut the main func

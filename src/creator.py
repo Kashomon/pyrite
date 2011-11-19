@@ -2,28 +2,19 @@
 # Copyright (c) 2011 Joshua Hoak, Alissa Pajer
 # Licensed under the MIT License
 
+import initr
+from parsing import parser 
+
 import file_util 
 import sys
 import os 
-import initr
 
-from parsing import parser 
-
-def create(input_dir, out_dir):
+def create(arg_hash):
     # Read in the raw strings from the contents of the files. 
+    input_dir = arg_hash['in_dir']
+    out_dir = arg_hash['out_dir']
 
-    """
-    TODO
-    if initr.indir_not_initd(input_dir):
-        initr.init_indir(input_dir)
-        return 
-
-    options = initr.read_options(input_dir)
-
-    initr.init_outdir_if_needed(out_dir)
-    """
-
-    options = ""
+    options = initr.init_or_read_opts(input_dir, out_dir)
 
     raw_contents = []
     if os.path.isdir(input_dir):

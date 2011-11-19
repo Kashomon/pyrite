@@ -7,10 +7,10 @@
 
 import post 
 import date_prop
-from file_util import write
 import json
 
-class BlogParser:
+
+class BlogParser(object):
     def __init__(self, parse_type, options):
         self.post_parser = post.PostParser(parse_type) 
         self.options = options
@@ -25,7 +25,8 @@ class BlogParser:
             posts.append(self.post_parser.parse(props_raw, content_raw))
         return Blog(posts, self.options)
 
-class Blog: 
+
+class Blog(object): 
     """ 
     Contains a number of Posts (List of Post)
 
@@ -101,6 +102,7 @@ class Blog:
         for post in self.posts:
             out += post.display_ast(1)
         return out.strip()
+
 
 def get_or_else(di, item, df):
     if item not in di:
