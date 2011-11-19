@@ -6,7 +6,7 @@ import date_prop
 import tags_prop
 import title_prop
 
-class PropertiesParser:
+class PropertiesParser(object):
     def __init__(self, parse_type):
         self.title_parser   = title_prop.TitleParser(parse_type)
         self.date_parser    = date_prop.DateParser(parse_type)
@@ -21,5 +21,5 @@ class PropertiesParser:
         elif lname == "tags":
             return self.tags_parser.parse(value)
         else:
-            raise Exception("Unknown property: %s" % name)
+            print "Unknown property: %s" % name
 

@@ -4,7 +4,7 @@
 
 from post_property import PostProperty
 
-class TitleParser:
+class TitleParser(object):
     def __init__(self, parse_type):
         pass
 

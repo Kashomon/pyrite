@@ -4,7 +4,7 @@
 
 from post_property import PostProperty 
 
-class TagsParser:
+class TagsParser(object):
     def __init__(self, parse_type):
         pass
 
@@ -27,6 +27,9 @@ class Tags(PostProperty):
         for item in self.tags:
           output += PostProperty.generate(self, item)
         return output
+
+    def to_string(self):
+        return str(self.tags)
 
     def display_ast(self, indents):
         indenting = indents * "  "

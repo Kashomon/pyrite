@@ -2,7 +2,7 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-class PostProperty:
+class PostProperty(object):
     """
     Defines a property of a post: a sort of abstract class.   All properties
     get their own div class and get rendered as HTML.

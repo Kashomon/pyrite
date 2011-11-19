@@ -5,10 +5,10 @@
 from post_property import PostProperty
 from datetime import datetime
 
-
 class DateParser(object):
     def __init__(self, parse_type):
         self.parse_methods = ["%d/%m/%y", "%d/%m/%y %H:%M", "%d %B %Y"]
+        self.cached_parsing = self.parse_methods[0]
         self.out_format = "%d %B %Y"
 
     def parse(self, string):

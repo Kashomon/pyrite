@@ -51,12 +51,12 @@ class Blog(object):
             order += 1
 
     def _create_tagging_links(self, post):
-        if "tags" in post.post_props:
+        if "tags" in post.props:
             tags_dict = get_or_else(self.links, "tags", {})
 
-            for tag in post.get_tags():
+            for tag in post.props['tags'].tags:
                 get_or_else(tags_dict, tag, [])
-                tags_dict[tag].append(post.get_id())
+                tags_dict[tag].append(post.post_id)
 
     def _create_date_links(self, post):
         if "dates" not in self.links:
@@ -71,14 +71,14 @@ class Blog(object):
         month = date_prop.num_to_month(datetuple[1])
         if month not in date_dict[datetuple[0]]:
             date_dict[datetuple[0]][month] = []
-        date_dict[datetuple[0]][month].append(post.get_id())
+        date_dict[datetuple[0]][month].append(post.post_id)
 
     def _bin_posts(self, order, post):
         pbin = order / 10 
         if pbin >= 0 and pbin < 10:
             ordd = get_or_else(self.links, "ordered_posts", {})
             numbin = get_or_else(ordd, pbin, [])
-            numbin.append(post.get_id())  
+            numbin.append(post.post_id)
         elif pbin < 0: 
             raise Exception("Bin can't be less than zero")
         return 
@@ -92,7 +92,7 @@ class Blog(object):
     def generate_json(self):
         compiled_posts = {}
         for post in self.posts:
-            compiled_posts[post.get_id()] = post.generate()
+            compiled_posts[post.post_id] = post.generate()
         self.links["compiled_posts"] = compiled_posts
         return json.dumps(self.links, indent=4)
 

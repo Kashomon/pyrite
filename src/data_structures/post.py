@@ -6,20 +6,27 @@
 import properties
 import content
 import random 
+import hashlib 
 
-class PostParser: 
+class PostParser(object): 
     def __init__(self, parse_type):
         self.content_parser = content.ContentParser(parse_type)
         self.properties_parser = properties.PropertiesParser(parse_type)
 
     def parse(self, props_raw, content_raw): 
         post_properties = {}
+        if 'date' not in props_raw:
+            raise Exception('Parsing Error: Each post must have a date\n' +
+                'Props: ' + str(props_raw) + '\n' +
+                'Content: ' + str(content_raw)
+            )
         for name, value in props_raw.iteritems():
             post_properties[name] = self.properties_parser.parse(name, value)
         content_parsed = self.content_parser.parse(content_raw)
         return Post(post_properties, content_parsed)
+
          
-class Post:
+class Post(object):
     """
     Accepts a number of PostProperties and transforms them to HTML.
     
@@ -27,44 +34,36 @@ class Post:
     param content: a content object
 
     """
-    def __init__(self, post_props, post_content):
+    def __init__(self, props, post_content):
         """
         Constructor should only be accessed by parse method.
         """
-        self.post_props = post_props
+        self.props = props
         self.post_content = post_content
-        self.post_id = self.get_filename()
+        self.post_id = self._create_id()
  
     def generate(self):
-        ordering = ["title", "date", "tags"]
-        compiled = ""
-        for prop in ordering:
-            if prop in self.post_props:
-                compiled += self.post_props[prop].generate()
+        ordering = ['title', 'date', 'tags']
+        compiled = ''
+        for key in ordering:
+            if key in self.props:
+                compiled += self.props[key].generate()
         return compiled + self.post_content.generate()
 
-    # Random getting-methods: Should remove?
-    def get_date(self):
-        return self.post_props["date"]
-
     def get_datetime(self):
-        return self.post_props["date"].date
+        return self.props['date'].date
 
-    def get_title(self):
-        return self.post_props["title"]
-
-    def get_tags(self):
-        return self.post_props["tags"].tags
-
-    def get_id(self):
-        return self.get_filename()
-
-    def get_filename(self):
-        return self.get_date().to_string() + "-" + self.get_title().to_string()
+    def _create_id(self):
+        datestr = self.props['date'].to_string() 
+        if 'title' in self.props:
+            return datestr + "-" + self.props['title'].to_string()
+        else:
+            return (datestr + "-" +
+                hashlib.sha1(self.post_content.generate()).hexdigest()[:12])
 
     def display_ast(self, indents):
         out = indents * "  " + "Post: " + self.post_id + "\n"
-        for propname, propvalue in self.post_props.iteritems():
-            out += propvalue.display_ast(indents + 1)
+        for propname, propvalue in self.props.iteritems():
+            if propvalue is not None and propvalue.display_ast is not None:  
+                out += propvalue.display_ast(indents + 1)
         return out + self.post_content.display_ast(indents + 1) + "\n"
-
