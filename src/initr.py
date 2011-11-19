@@ -30,8 +30,11 @@ def indir_not_initd(input_dir):
 
 def init_indir(input_dir):
     if not os.path.exists(os.path.join(input_dir, "pyrite_options.py")):
+        print os.path.realpath(__file__)
         options_file = file_util.read_file(
-            __file__.replace('initr.py', 'default_options.py'))
+            os.path.realpath(__file__.replace(
+                'initr.py.*', 'default_options.py')))
+        print options_file
         file_util.write_file(
             os.path.join(input_dir, "pyrite_options.py"), options_file)
     #print file_util.read_file(default_options.__file__

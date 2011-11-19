@@ -9,3 +9,6 @@
 *~ 
 *.swp
 test_blog_dir
+dist
+build
+Pyrite.egg-info

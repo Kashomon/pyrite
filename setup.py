@@ -12,8 +12,8 @@ setup(name='Pyrite',
       author_email='jrhoak@gmail.com',
       url='https://github.com/Kashomon/pyrite',
       license='MIT',
-      packages=["src"]
-      install_requires =['argparse']
+      packages=["src", "src/parsing", "src/data_structures"],
+      install_requires =['argparse'],
       entry_points="""
       [console_scripts]
       pyrite = src.main:main 

@@ -6,7 +6,7 @@
 import re
 import sys
 
-from data_structures import blog
+from src.data_structures import blog 
         
 def buildParser(parse_type, options): 
     return Parser(parse_type, options)
