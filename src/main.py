@@ -26,8 +26,8 @@ def main(argv=None):
     """
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ohinc", ["help", "test",
-            "stress", "init"])
+        opts, args = getopt.getopt(sys.argv[1:], 'ohinc', ['help', 'test',
+            'stress', 'init', 'clean_init'])
     except getopt.GetoptError, err:
         displayHelp()
         print str(err)
@@ -36,8 +36,8 @@ def main(argv=None):
     arg_hash = { 
         'in_dir': os.getcwd(),
         'out_dir': os.path.join(os.getcwd(), 'pyrite_blog'),
-        'do_init': False,
-        'verbosity': 0
+        'clean_init': False,
+        'verbosity': 0,
     } 
 
     print arg_hash
@@ -49,11 +49,12 @@ def main(argv=None):
         elif o == "--test":
             arg_hash['in_dir'] = "test_files"
             arg_hash['out_dir'] = "test_files/test_blog_dir"
-            break
+            arg_hash['clean_init'] = True
         elif o == "--stress":
             arg_hash['in_dir'] = "stress_files"
             arg_hash['out_dir'] = "stress_files/test_blog_dir"
-            break
+        elif o == "--clean_init":
+            arg_hash['clean_init'] = True
         elif o == "-o":
             arg_hash['out_dir'] = v
         else:

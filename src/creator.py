@@ -14,7 +14,8 @@ def create(arg_hash):
     input_dir = arg_hash['in_dir']
     out_dir = arg_hash['out_dir']
 
-    options = initr.init_or_read_opts(input_dir, out_dir)
+    options = initr.init_or_read_opts(input_dir, out_dir,
+        arg_hash['clean_init'])
 
     raw_contents = []
     if os.path.isdir(input_dir):
@@ -48,9 +49,3 @@ def create(arg_hash):
 
     # Generate the blog files 
     # blog.generate(out_dir) 
-
-def clear(root_dir):
-    pass
-     
-def init_dir():
-    raise Exception("Not implemented yet")

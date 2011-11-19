@@ -8,37 +8,41 @@ import file_util
 import os
 import sys
 
-def init_or_read_opts(input_dir, output_dir):
-    if indir_not_initd(input_dir):
+def init_or_read_opts(input_dir, output_dir, clean_init):
+    if not indir_is_initd(input_dir):
         init_indir(input_dir)
         print "Finished initializing Pyrite. Have fun Pyriting!" 
-        # sys.exit(0) 
+        sys.exit(0) 
+
+    if clean_init:
+        init_indir(input_dir)
 
     print "Checking for output initialization"
     # init_outdir_if_needed(output_dir)
 
 
-def indir_not_initd(input_dir):
+def indir_is_initd(input_dir):
     file_set = frozenset(os.listdir(input_dir))
-    if ("pyrite_options.py" in file_set and
-        "pyrite_css" in file_set and 
-        "pyrite_js" in file_set):
-        return False
+    if "pyrite_options.py" not in file_set:
+        return False 
     else: 
-        return True 
+        return True
      
 
 def init_indir(input_dir):
-    if not os.path.exists(os.path.join(input_dir, "pyrite_options.py")):
-        to_read = os.path.realpath(__file__).replace(
-            'initr.pyc', 'default_options.py').replace(
-            'initr.py', 'default_option.py')
-        options_file = file_util.read_file(to_read)
-        file_util.write_file(
-            os.path.join(input_dir, "pyrite_options.py"), options_file)
+    options = read_options()
+    file_util.write_file(
+        os.path.join(input_dir, "pyrite_options.py"), options_file)
     #print file_util.read_file(default_options.__file__
     #          .replace('.pyc', '.py'))
 
+
+def read_options():
+    to_read = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "templates",
+        "default_options.py")
+    return file_util.read_file(to_read)
 
 def init_outdir_if_needed(out_dir):
     pass
