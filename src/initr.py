@@ -66,7 +66,6 @@ def init_indir(input_dir):
     website_url = raw_input('[default=www.pyrite-blog.com]: ')
     if website_url == '': website_url = 'www.pyrite-blog.com'
     options = options.replace('my_website_url', website_url)
-    print ''
     print '------------------'
     print 'Writing your options to pyrite_options.py'
     print '------------------'
