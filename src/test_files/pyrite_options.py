@@ -7,8 +7,9 @@
 #####################
 # Basic Information #
 #####################
-
-BLOG_NAME = "MyBlog"
+BLOG_NAME = "PyriteBlog"
+INPUT_LOCATION = "test_files"
+OUTPUT_LOCATION = "test_files/pyrite_output"
 
 # For more about python date formats, see
 # http://docs.python.org/library/datetime.html#strftime-and-strptime-behavior
@@ -18,10 +19,8 @@ OUT_DATE_FORMAT = "%d %B %Y"    # i.e., strftime
 #######################
 # Website Information #
 #######################
-
-# REQUIRED_FIELD 
 # Example: PYRITE_WEBSITE_LOCATION = 'www.myblog.com'
-PYRITE_WEBSITE_LOCATION = ""    
+PYRITE_WEBSITE_LOCATION = "www.pyrite-blog.com"
 
 # Pyrite assumes by default that your blog is located at
 # PYRITE_WEBSITE_LOCATION.

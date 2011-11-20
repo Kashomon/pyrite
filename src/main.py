@@ -40,7 +40,7 @@ def main(argv=None):
         'verbosity': 0,
     } 
 
-    print arg_hash
+    # print arg_hash
 
     for o, v in opts:
         if o == "-h" or o == "--help":
