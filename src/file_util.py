@@ -33,7 +33,7 @@ def makedirs_quiet(path):
     try: 
         os.makedirs(path)
         print "Successful!"
-    except IOError as (errno, strerror):
+    except OSError as (errno, strerror):
         print "Couldn't make the dirs in the path: %s" % path
 
 

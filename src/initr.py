@@ -12,6 +12,7 @@ OPTIONS_NAME = "pyrite_options.py"
 CSS_DIR = "pyrite_css" 
 JS_DIR = "pyrite_js" 
 MEDIA_DIR = "pyrite_media"
+DATA_FILE = "pyrite_data.js"
 
 DIRS = [CSS_DIR, JS_DIR, MEDIA_DIR]
 

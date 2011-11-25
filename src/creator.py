@@ -3,7 +3,7 @@
 # Licensed under the MIT License
 
 import initr
-from parsing import parser 
+import parser 
 
 import file_util 
 import sys
@@ -37,19 +37,19 @@ def create(arg_hash):
     blog = blog_parser.parse(raw_contents)
 
     # Sort the posts by date
+    # TODO(josh): Should this be internal to the blog? 
     blog.sort_posts()
 
     # Create the links 
     blog.create_links()
 
     # Display the AST (for the curious)
-    print blog.display_ast()
+    # print blog.display_ast()
 
     # Generate the JSON representation    
-    print blog.generate_json()
+    json_out = blog.generate_json()
+    # print json_out
 
     # Create the necessary pyrite directories 
-    # initr.make_pyrite_dirs(out_dir)
-
-    # Generate the blog files 
-    # blog.generate(out_dir) 
+    json_path = os.path.join(out_dir, initr.JS_DIR, initr.DATA_FILE)
+    file_util.write_file(json_path, json_out)

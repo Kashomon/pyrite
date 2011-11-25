@@ -12,3 +12,4 @@ test_blog_dir
 dist
 build
 Pyrite.egg-info
+pyrite_blog
