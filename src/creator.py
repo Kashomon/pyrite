@@ -14,6 +14,10 @@ def create(arg_hash):
     input_dir = arg_hash['in_dir']
     out_dir = arg_hash['out_dir']
 
+    if arg_hash['clean']: 
+        initr.clean_dirs(input_dir, out_dir) 
+        sys.exit(1) 
+
     options = initr.init_or_read_opts(input_dir, out_dir,
         arg_hash['clean_init'])
 

@@ -3,35 +3,41 @@
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
-import default_options 
+from templates import default_options 
 import file_util
 import os
 import sys
 
+OPTIONS_NAME = "pyrite_options.py"
+CSS_DIR = "pyrite_css" 
+JS_DIR = "pyrite_js" 
+MEDIA_DIR = "pyrite_media"
+
+DIRS = [CSS_DIR, JS_DIR, MEDIA_DIR]
+
 def init_or_read_opts(input_dir, output_dir, clean_init):
-    if not indir_is_initd(input_dir):
+    if not indir_is_initd(input_dir) and not clean_init:
         init_indir(input_dir)
         print "Finished initializing Pyrite. Have fun Pyriting!" 
         sys.exit(0) 
 
     if clean_init:
+        clean_dirs(input_dir, output_dir) 
         init_indir(input_dir)
 
-    print "Checking for output directory initialization"
-
-    sys.exit(0)
-    # init_outdir_if_needed(output_dir)
+    init_outdir_if_needed(output_dir)
 
 
 def indir_is_initd(input_dir):
     file_set = frozenset(os.listdir(input_dir))
-    if "pyrite_options.py" not in file_set:
+    if OPTIONS_NAME not in file_set:
         return False 
     else: 
         return True
      
 
 def init_indir(input_dir):
+    check_dir_exists(input_dir)
     print '------------------'
     print 'Pyrite Initializer'
     print '------------------'
@@ -60,37 +66,49 @@ def init_indir(input_dir):
     if output_location == '': output_location = (
         os.path.join(input_dir, 'pyrite_output'))
     options = options.replace('my_out_location', output_location)
-    
-    print '' 
-    print 'What will be the URL of your website? ' 
-    website_url = raw_input('[default=www.pyrite-blog.com]: ')
-    if website_url == '': website_url = 'www.pyrite-blog.com'
-    options = options.replace('my_website_url', website_url)
     print '------------------'
-    print 'Writing your options to pyrite_options.py'
+    print 'Writing your options to %s' % OPTIONS_NAME
     print '------------------'
-    
 
     file_util.write_file(
-        os.path.join(input_dir, "pyrite_options.py"), options)
-
-
+        os.path.join(input_dir, OPTIONS_NAME), options)
 
 def read_options():
     to_read = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
+        file_util.get_module_dir(),
         "templates",
         "default_options.py")
     return file_util.read_file(to_read)
 
 
 def init_outdir_if_needed(out_dir):
-    pass
+    print '------------------'
+    print "Checking for output directory initialization"
+    print '------------------'
+    check_dir_exists(out_dir)
+    make_out_dirs(out_dir)
 
+def check_dir_exists(path): 
+   if os.path.isdir(path):
+        return
+   else:
+        print "The directory: %s doesn't exist." % path
+        make_base_dirs(path)
 
-def make_in_dirs(in_dir): 
-    pass
+def make_base_dirs(path): 
+   file_util.makedirs_quiet(path) 
+
 
 def make_out_dirs(out_dir):
-    file_util.makedirs_quiet(os.path.join(input_dir, "pyrite_css"))
-    file_util.makedirs_quiet(os.path.join(input_dir, "pyrite_js"))
+    for direct in DIRS:
+        file_util.makedirs_quiet(os.path.join(out_dir, direct))
+
+def clean_dirs(input_dir, output_dir): 
+    print 'Cleaning the pyrite-produced files'
+
+    opts = os.path.join(input_dir, OPTIONS_NAME) 
+    file_util.remove_file(opts)
+    for d in DIRS: 
+        dir_path = os.path.join(output_dir, d)
+        file_util.remove_all_files(dir_path)
+        file_util.remove_dir(dir_path)

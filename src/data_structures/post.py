@@ -54,6 +54,7 @@ class Post(object):
         return self.props['date'].date
 
     def _create_id(self):
+        print self.props
         datestr = self.props['date'].to_string() 
         if 'title' in self.props:
             return datestr + "-" + self.props['title'].to_string()

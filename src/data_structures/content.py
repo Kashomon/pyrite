@@ -2,7 +2,7 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-from post_property import PostProperty
+import properties 
 
 class ContentParser(object):
     def __init__(self, parse_type):
@@ -12,16 +12,16 @@ class ContentParser(object):
         # TODO(josh): Lots of meaty stuff to go here
         return Content(string.strip())
 
-class Content(PostProperty):
+class Content(object):
     def __init__(self, post_content):
         """
         Constructor should only be accessed by parse method.
         """
-        PostProperty.__init__(self, "content")   
+        self.css_class = 'pyrite_content' 
         self.post_content = post_content 
 
     def generate(self): 
-        return PostProperty.generate(self,self.post_content)
+        return properties.generate_html(self.css_class, self.post_content)
 
     def display_ast(self, indents):
         indenting = indents * "  "

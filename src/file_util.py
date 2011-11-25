@@ -29,11 +29,12 @@ def read_files(path):
 ######################
 
 def makedirs_quiet(path):
-    print "Making the following path: " + path
+    print "Trying to make the following path: " + path
     try: 
         os.makedirs(path)
+        print "Successful!"
     except IOError as (errno, strerror):
-        print "Couldn't make the dirs!"
+        print "Couldn't make the dirs in the path: %s" % path
 
 
 def write_file(location, contents):  
@@ -42,23 +43,28 @@ def write_file(location, contents):
     outf.close()
 
 
-def write(directory, name, extension, contents):  
-    write_file(directory + "/" + name + "." + extension, contents)
-
 ############
 # Deleting #
 ############
 
-def clear_blog_gen_files(path):
-    to_remove = "html"
-    ignore = frozenset('index.html', 'bloglist.html')
-    dir_list = os.listdir(path)
+def remove_all_files(path):
+    if os.path.exists(path) and os.path.isdir(path):
+        dir_list = os.listdir(path)
+        for file in dir_list:
+            remove_file(os.path.join(file))
 
-def clear_init_files(path):
-    to_remove = "html"
-    ignore = frozenset("index.html")
-    path = std_path(path)
-    dir_list = os.listdir(path)
+def remove_file(path):
+    if os.path.isfile(path):
+        print 'Removing: %s' % path
+        os.remove(path)
+
+def remove_dir(path):
+    if os.path.exists(path) and os.path.isdir(path):
+        if len(os.listdir(path)) != 0:
+            print "Can't remove dir: %s; not empty" % path
+        else:
+            print "Removing dir: %s" % path
+            os.rmdir(path)
 
 #####################
 # Utility Functions #
@@ -71,3 +77,5 @@ def file_is_blog_type(fname):
             return True
     return False
 
+def get_module_dir(): 
+    return os.path.dirname(os.path.realpath(__file__))

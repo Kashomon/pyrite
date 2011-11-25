@@ -8,8 +8,8 @@
 # Basic Information #
 #####################
 BLOG_NAME = "PyriteBlog"
-INPUT_LOCATION = "test_files"
-OUTPUT_LOCATION = "test_files/pyrite_output"
+INPUT_LOCATION = "/Users/Kashomon/Desktop/Current Projects/pyrite/src/test_files"
+OUTPUT_LOCATION = "/Users/Kashomon/Desktop/Current Projects/pyrite/src/test_files/pyrite_output"
 
 # For more about python date formats, see
 # http://docs.python.org/library/datetime.html#strftime-and-strptime-behavior
@@ -20,7 +20,7 @@ OUT_DATE_FORMAT = "%d %B %Y"    # i.e., strftime
 # Website Information #
 #######################
 # Example: PYRITE_WEBSITE_LOCATION = 'www.myblog.com'
-PYRITE_WEBSITE_LOCATION = "www.pyrite-blog.com"
+PYRITE_WEBSITE_LOCATION = "my_website_url"
 
 # Pyrite assumes by default that your blog is located at
 # PYRITE_WEBSITE_LOCATION.

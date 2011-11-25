@@ -2,25 +2,22 @@
 # Licensed under the MIT License 
 # Authors: Josh Hoak (jrhoak@gmail.com)
 
-from post_property import PostProperty
+import properties 
 
-class TitleParser(object):
-    def __init__(self, parse_type):
-        pass
+class Parser(object):
+    def __init__(self, parse_type, css_class):
+        self.css_class = css_class
 
     def parse(self, string): 
-        return Title(string)
+        return Title(string, self.css_class)
 
-class Title(PostProperty):
-    def __init__(self, title):
+class Title(object):
+    def __init__(self, title, css_class):
         """
         Constructor should be only accessed by parse method.
         """
-        PostProperty.__init__(self, "post_title") 
+        self.css_class = css_class
         self.title = title
-
-    def generate(self):    # self.divId is the name of the HTML class
-        return PostProperty.generate(self, self.title)
 
     def to_string(self):
         return self.title
@@ -28,3 +25,10 @@ class Title(PostProperty):
     def display_ast(self, indents):
         indenting = indents * "  "
         return indenting + "Title:" + self.to_string() + "\n"
+
+    def generate(self):    # self.divId is the name of the HTML class
+        return properties.generate_html(
+            self.css_class, self.render_content())
+
+    def render_content(self): 
+        return self.title
