@@ -4,25 +4,44 @@
 -- A blog generator 
 
 
+## Installing and Running
+
+To install, simply do the following:
+
+      python setup.py install
+
+Then, to run, type:
+
+      pyrite
+
+In the directory you wish to initialize. After you've finished initialization,
+type again:
+
+      pyrite
+
+to generate the blog!    
+
+## Dev tools
+
 Testing can be performed by running 
 
-        python -m unittest discover
+      python -m unittest discover
         
 or
 
-        ./do_tests.sh
+      ./do_tests.sh
 
 or by running the python module nose...
 
 To cleanup vim files and pyc files, run
     
-        ./cleanup
+      ./cleanup
 
 ### Summary of how pyrite works
 Our tour begins in src/pyrite. 
 We begin with main.py. Try typing
 
-        ./main.py <directory_name>
+      ./main.py <directory_name>
 
 main.py will read all the files in the specified directory that end in .yaml. 
 Once main.py figures out which directories will be input and output, main.py
