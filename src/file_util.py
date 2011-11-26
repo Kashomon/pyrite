@@ -48,15 +48,22 @@ def write_file(location, contents):
 ############
 
 def remove_all_files(path):
-    if os.path.exists(path) and os.path.isdir(path):
+    # print 'attempting to remove all files from %s' % path
+    if os.path.isdir(path):
         dir_list = os.listdir(path)
         for file in dir_list:
-            remove_file(os.path.join(file))
+            to_remove = os.path.join(path, file)
+            print 'removing file: %s' % to_remove
+            remove_file(to_remove)
+    else: 
+        pass
 
 def remove_file(path):
     if os.path.isfile(path):
         print 'Removing: %s' % path
         os.remove(path)
+    else: 
+        pass
 
 def remove_dir(path):
     if os.path.exists(path) and os.path.isdir(path):

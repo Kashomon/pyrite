@@ -47,7 +47,7 @@ def create(arg_hash):
     # print blog.display_ast()
 
     # Generate the JSON representation    
-    json_out = blog.generate_json()
+    json_out = "var pyrite_data = " + (blog.generate_json().strip()) + ";" 
     # print json_out
 
     # Create the necessary pyrite directories 

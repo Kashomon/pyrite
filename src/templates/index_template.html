@@ -1,9 +1,14 @@
 <html> 
   <head>
     <!-- Load Data --> 
+    <link rel="stylesheet" type="text/css" href="pyrite_css/pyrite.css">
+    <script type="text/javascript" src="pyrite_js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="pyrite_js/pyrite_data.js"></script>
+    <script type="text/javascript" src="pyrite_js/pyrite_blog.js"></script>
   </head>   
 
-  <body> 
-    <!-- Load JS with data --> 
+  <!-- Load pyrite with data from pyrite_data into the specified div--> 
+  <body onload="pyrite.webload('pyrite_base_div')"> 
+    <div id="pyrite_base_div"></div>
   </body> 
 </html> 

@@ -12,9 +12,10 @@ setup(name='Pyrite',
       author_email='jrhoak@gmail.com',
       url='https://github.com/Kashomon/pyrite',
       license='MIT',
-      packages=["src", "src/parsing", "src/data_structures", 
-      "src/templates"],
-      install_requires =['argparse'],
+      packages=["src", "src/data_structures", "src/templates"],
+      install_requires=['argparse'],
+      package_data={"src" : ["templates/*.html", "templates/pyrite_js/*.js",
+      "templates/pyrite_css/*.css"]},
       entry_points="""
       [console_scripts]
       pyrite = src.main:main 
