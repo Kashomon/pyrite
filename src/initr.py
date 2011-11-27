@@ -21,7 +21,6 @@ DEFAULT_OPTS = "default_options.py"
 BLOG_JS_TEMP = "pyrite_blog_template.js"
 INDEX_TEMP = "index_template.html"
 CSS_TEMP = "basic.css"
-CSS_OUT = "pyrite.css"
 JQUERY = "jquery-1.7.1.min.js"
 
 DATA_FILE = "pyrite_data.js"
@@ -33,12 +32,12 @@ BLOG_JS = "pyrite_blog.js"
 
 def init_or_read_opts(input_dir, output_dir, clean_init):
     if not indir_is_initd(input_dir) and not clean_init:
-        init_indir(input_dir)
+        init_indir_and_options(input_dir)
         print "Finished initializing Pyrite. Have fun Pyriting!" 
 
     if clean_init:
         clean_dirs(input_dir, output_dir) 
-        init_indir(input_dir)
+        init_indir_and_options(input_dir)
 
     options = read_and_import_options(input_dir)
 
@@ -55,7 +54,7 @@ def indir_is_initd(input_dir):
         return True
      
 
-def init_indir(input_dir):
+def init_indir_and_options(input_dir):
     ensure_base_dir_exists(input_dir)
     print '------------------'
     print 'Pyrite Initializer'
@@ -119,32 +118,31 @@ def init_outdir_if_needed(out_dir, opts):
     ensure_base_dir_exists(out_dir)
     make_out_dirs(out_dir)
     
+    copy_template_file(out_dir, BLOG_JS, BLOG_JS_TEMP, [JS_DIR])
+
+    copy_template_file(out_dir, opts.INDEX_FILE, INDEX_TEMP, [])
+
+    # Right now, copying all the files. Could copy just the one specified.
     mod_dir = file_util.get_module_dir()    
+    for css in os.listdir(os.path.join(mod_dir, TEMP_DIR, CSS_DIR)):
+        copy_template_file(out_dir, css, css, [CSS_DIR])
 
-    # TODO: Clean this up!
-    blog_js_path = os.path.join(out_dir, JS_DIR, BLOG_JS)
-    if not os.path.isfile(blog_js_path):
-        blog_js = file_util.read_file(
-            os.path.join(mod_dir, TEMP_DIR, JS_DIR, BLOG_JS_TEMP))
-        file_util.write_file(blog_js_path, blog_js)
+    copy_template_file(out_dir, JQUERY, JQUERY, [JS_DIR])
 
-    index_path = os.path.join(out_dir, opts.INDEX_FILE) 
-    if not os.path.isfile(index_path):
-        index = file_util.read_file(
-            os.path.join(mod_dir, TEMP_DIR, INDEX_TEMP))
-        file_util.write_file(index_path, index)
 
-    css_path = os.path.join(out_dir, CSS_DIR, opts.CSS_FILE)
-    if not os.path.isfile(css_path):
-        css = file_util.read_file( 
-            os.path.join(mod_dir, TEMP_DIR, CSS_DIR, CSS_TEMP))
-        file_util.write_file(css_path, css) 
+def copy_template_file(out_dir, out_file, in_file, connectors):
+    read_path = os.path.join(file_util.get_module_dir(), TEMP_DIR)
+    for con in connectors: 
+        read_path = os.path.join(read_path, con)
+    read_path = os.path.join(read_path, in_file)
 
-    jquery_path = os.path.join(out_dir, JS_DIR, JQUERY)
-    if not os.path.isfile(jquery_path):
-        jquery = file_util.read_file( 
-            os.path.join(mod_dir, TEMP_DIR, JS_DIR, JQUERY))
-        file_util.write_file(jquery_path, jquery) 
+    out_path = out_dir
+    for con in connectors: 
+        out_path = os.path.join(out_path, con) 
+    out_path = os.path.join(out_path, out_file)
+
+    file_util.copy_file_safe(read_path, out_path)
+
 
 def ensure_base_dir_exists(path): 
    if os.path.isdir(path):

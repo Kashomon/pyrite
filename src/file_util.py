@@ -42,6 +42,18 @@ def write_file(location, contents):
     outf.write(contents)
     outf.close()
 
+###########
+# Copying #
+###########
+
+def copy_file(from_loc, to_loc):
+    if os.path.isfile(from_loc):
+        write_file(to_loc, read_file(from_loc))
+
+def copy_file_safe(from_loc, to_loc):
+    if os.path.isfile(from_loc) and not os.path.isfile(to_loc):
+        write_file(to_loc, read_file(from_loc))
+
 
 ############
 # Deleting #
