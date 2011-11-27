@@ -13,6 +13,7 @@ def buildParser(parse_type, options):
 
 class Parser(object): 
     def __init__(self, parse_type, options):
+        self.options = options 
         self.blog_parser = blog.BlogParser(parse_type, options)
         self.parse = self.toplevel_parser(parse_type)
 

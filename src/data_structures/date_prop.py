@@ -6,11 +6,14 @@ from datetime import datetime
 import properties
 
 class Parser(object):
-    def __init__(self, parse_type, css_class):
+    def __init__(self, parse_type, options):
+        self.parse_type = parse_type
+        self.options = options
+
         self.parse_methods = ["%d/%m/%y", "%d/%m/%y %H:%M", "%d %B %Y"]
         # We cache the most successful parsing method at the head of the list
         self.parse_methods.insert(0, self.parse_methods[0])
-        self.css_class = css_class
+        self.css_class = options.DATE_CLASS
         self.out_format = "%d %B %Y"
 
     def parse(self, string):

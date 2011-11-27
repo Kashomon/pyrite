@@ -5,11 +5,13 @@
 import properties 
 
 class Parser(object):
-    def __init__(self, parse_type, css_class):
-        self.css_class = css_class
+    def __init__(self, parse_type, options):
+        self.parse_type = parse_type
+        self.options = options
+        self.css_class = options.TITLE_CLASS
 
     def parse(self, string): 
-        return Title(string, self.css_class)
+        return Title(string.strip(), self.css_class)
 
 class Title(object):
     def __init__(self, title, css_class):

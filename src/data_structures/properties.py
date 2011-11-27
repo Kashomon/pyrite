@@ -7,23 +7,13 @@ import tags_prop
 import title_prop
 
 class PropertiesParser(object):
-    def __init__(self, parse_type):
-        self.parser_initrs = { 
-            "title" : (title_prop, "pyrite_title"),
-            "date" : (date_prop, "pyrite_date"),
-            "tags" : (tags_prop, "pyrite_tags") 
+    def __init__(self, parse_type, options):
+        self.options = options
+        self.parsers = { 
+            "title" : title_prop.Parser(parse_type, options),
+            "date" : date_prop.Parser(parse_type, options),
+            "tags" : tags_prop.Parser(parse_type, options)
         }
-
-        self.parsers = {} 
-        css_record = ""
-
-        for name, pair in self.parser_initrs.iteritems(): 
-            module, css_class = pair
-            self.parsers[name] = module.Parser(parse_type, css_class)
-            css_record = name + " = " + css_class + "\n"
-
-        # Before we can start writing the css names, we need to pass in the
-        # options. 
 
     def parse(self, name, value):
         lname = name.lower()

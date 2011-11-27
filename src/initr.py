@@ -6,6 +6,7 @@
 import file_util
 import os
 import sys
+import imp
 
 OPTIONS_NAME = "pyrite_options.py"
 CSS_DIR = "pyrite_css" 
@@ -17,26 +18,33 @@ TEMP_DIR = "templates"
 
 DEFAULT_OPTS = "default_options.py"
 
-DATA_FILE = "pyrite_data.js"
-BLOG_JS_OUT = "pyrite_blog.js"
 BLOG_JS_TEMP = "pyrite_blog_template.js"
 INDEX_TEMP = "index_template.html"
-INDEX_OUT = "index.html"
 CSS_TEMP = "basic.css"
 CSS_OUT = "pyrite.css"
 JQUERY = "jquery-1.7.1.min.js"
+
+DATA_FILE = "pyrite_data.js"
+BLOG_JS = "pyrite_blog.js"
+
+#For Reference: From the Options file:
+#INDEX_FILE = "index.html"
+#CSS_FILE = "pyrite.css"
 
 def init_or_read_opts(input_dir, output_dir, clean_init):
     if not indir_is_initd(input_dir) and not clean_init:
         init_indir(input_dir)
         print "Finished initializing Pyrite. Have fun Pyriting!" 
-        sys.exit(0) 
 
     if clean_init:
         clean_dirs(input_dir, output_dir) 
         init_indir(input_dir)
 
-    init_outdir_if_needed(output_dir)
+    options = read_and_import_options(input_dir)
+
+    init_outdir_if_needed(output_dir, options)
+
+    return options
 
 
 def indir_is_initd(input_dir):
@@ -52,7 +60,7 @@ def init_indir(input_dir):
     print '------------------'
     print 'Pyrite Initializer'
     print '------------------'
-    options = read_options()
+    options = read_default_options()
     print 'Let\'s initialize your blog with some initial settigns'
     print 'You can change them later in the generated pyrite_options.py'
     print ''
@@ -84,15 +92,27 @@ def init_indir(input_dir):
     file_util.write_file(
         os.path.join(input_dir, OPTIONS_NAME), options)
 
-def read_options():
+def read_default_options():
     to_read = os.path.join(
         file_util.get_module_dir(),
         TEMP_DIR,
         DEFAULT_OPTS)
     return file_util.read_file(to_read)
 
+def read_and_import_options(input_dir):
+    options_mod = None
+    opts_file = os.path.join(input_dir, OPTIONS_NAME)
+    print "Importing the options file"
+    try: 
+        options_mod = imp.load_source("options", opts_file)
+    except ImportError:
+        print "Couldn't import the options file: %s" % opts_file
+        sys.exit(2)
+    except IOError:
+        print "Couldn't find the specified options file: %s" % opts_file
+    return options_mod
 
-def init_outdir_if_needed(out_dir):
+def init_outdir_if_needed(out_dir, opts):
     print '------------------'
     print "Checking for output directory initialization"
     print '------------------'
@@ -102,19 +122,19 @@ def init_outdir_if_needed(out_dir):
     mod_dir = file_util.get_module_dir()    
 
     # TODO: Clean this up!
-    blog_js_path = os.path.join(out_dir, JS_DIR, BLOG_JS_OUT)
+    blog_js_path = os.path.join(out_dir, JS_DIR, BLOG_JS)
     if not os.path.isfile(blog_js_path):
         blog_js = file_util.read_file(
             os.path.join(mod_dir, TEMP_DIR, JS_DIR, BLOG_JS_TEMP))
         file_util.write_file(blog_js_path, blog_js)
 
-    index_path = os.path.join(out_dir, INDEX_OUT) 
+    index_path = os.path.join(out_dir, opts.INDEX_FILE) 
     if not os.path.isfile(index_path):
         index = file_util.read_file(
             os.path.join(mod_dir, TEMP_DIR, INDEX_TEMP))
         file_util.write_file(index_path, index)
 
-    css_path = os.path.join(out_dir, CSS_DIR, CSS_OUT)
+    css_path = os.path.join(out_dir, CSS_DIR, opts.CSS_FILE)
     if not os.path.isfile(css_path):
         css = file_util.read_file( 
             os.path.join(mod_dir, TEMP_DIR, CSS_DIR, CSS_TEMP))
@@ -142,11 +162,8 @@ def make_out_dirs(out_dir):
 
 def clean_dirs(input_dir, output_dir): 
     print 'Cleaning the pyrite-produced files'
-
-    opts = os.path.join(input_dir, OPTIONS_NAME) 
-    file_util.remove_file(opts)
-    index = os.path.join(output_dir, INDEX_OUT)
-    file_util.remove_file(index)
+    file_util.remove_file(os.path.join(input_dir, OPTIONS_NAME))
+    file_util.remove_file(os.path.join(output_dir, "pyrite_index.html"))
     for d in DIRS: 
         dir_path = os.path.join(output_dir, d)
         file_util.remove_all_files(dir_path)

@@ -9,9 +9,13 @@ import random
 import hashlib 
 
 class PostParser(object): 
-    def __init__(self, parse_type):
-        self.content_parser = content.ContentParser(parse_type)
-        self.properties_parser = properties.PropertiesParser(parse_type)
+    def __init__(self, parse_type, options):
+        self.parse_type = parse_type
+        self.options = options
+        self.css_class = options.POST_CLASS
+        self.content_parser = content.ContentParser(parse_type, options)
+        self.properties_parser = properties.PropertiesParser(
+            parse_type, options)
 
     def parse(self, props_raw, content_raw): 
         post_properties = {}
@@ -23,7 +27,7 @@ class PostParser(object):
         for name, value in props_raw.iteritems():
             post_properties[name] = self.properties_parser.parse(name, value)
         content_parsed = self.content_parser.parse(content_raw)
-        return Post(post_properties, content_parsed)
+        return Post(post_properties, content_parsed, self.css_class)
 
          
 class Post(object):
@@ -34,12 +38,13 @@ class Post(object):
     param content: a content object
 
     """
-    def __init__(self, props, post_content):
+    def __init__(self, props, post_content, css_class):
         """
         Constructor should only be accessed by parse method.
         """
         self.props = props
         self.post_content = post_content
+        self.css_class = css_class
         self.post_id = self._create_id()
  
     def generate(self):
@@ -48,7 +53,8 @@ class Post(object):
         for key in ordering:
             if key in self.props:
                 compiled += self.props[key].generate()
-        return compiled + self.post_content.generate()
+        return properties.generate_html(self.css_class, 
+            compiled + self.post_content.generate())
 
     def get_datetime(self):
         return self.props['date'].date

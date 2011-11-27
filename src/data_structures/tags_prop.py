@@ -5,8 +5,10 @@
 import properties 
 
 class Parser(object):
-    def __init__(self, parse_type, css_class):
-        self.css_class = css_class
+    def __init__(self, parse_type, options):
+        self.parse_type = parse_type
+        self.options = options
+        self.css_class = options.TAGS_CLASS
 
     def parse(self, tags_raw): 
         return Tags(tags_raw.split(","), self.css_class)

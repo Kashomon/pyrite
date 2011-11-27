@@ -12,7 +12,7 @@ import json
 
 class BlogParser(object):
     def __init__(self, parse_type, options):
-        self.post_parser = post.PostParser(parse_type) 
+        self.post_parser = post.PostParser(parse_type, options) 
         self.options = options
 
     def parse(self, raw_posts):
