@@ -12,13 +12,13 @@ setup(name='Pyrite',
     author_email='jrhoak@gmail.com',
     url='https://github.com/Kashomon/pyrite',
     license='MIT',
-    packages=["src", "src/data_structures", "src/templates"],
+    packages=["src", "src/data_structures", "src/resources"],
     install_requires=['argparse', 'mako'],
-    package_data={"src" : ["templates/*.html", "templates/pyrite_js/*.js",
-    "templates/pyrite_css/*.css"]},
+    package_data={"src" : ["resources/*.html", "resources/pyrite_js/*.js",
+    "resources/pyrite_css/*.css"]},
     entry_points="""
     [console_scripts]
     pyrite = src.main:main 
     """
-   )   
+    )   
 

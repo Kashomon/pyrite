@@ -4,6 +4,7 @@
 
 import initr
 import parser 
+import psettings
 
 import file_util 
 import sys
@@ -52,5 +53,5 @@ def create(arg_hash):
   # print json_out
 
   # Create the necessary pyrite directories 
-  json_path = os.path.join(out_dir, initr.JS_DIR, initr.DATA_FILE)
+  json_path = os.path.join(out_dir, psettings.JS_DIR, psettings.DATA_FILE)
   file_util.write_file(json_path, json_out)

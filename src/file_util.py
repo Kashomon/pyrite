@@ -29,18 +29,20 @@ def read_files(path):
 ######################
 
 def makedirs_quiet(path):
-  print "Trying to make the following path: " + path
+  # print "Trying to make the following path: " + path
   try: 
     os.makedirs(path)
-    print "Successful!"
+    # print "Successful!"
   except OSError as (errno, strerror):
-    print "Couldn't make the dirs in the path: %s" % path
+    pass
+    # print "Couldn't make the dirs in the path: %s" % path
 
 
 def write_file(location, contents):  
   outf = open(location, "w")  
   outf.write(contents)
   outf.close()
+
 
 ###########
 # Copying #
@@ -65,14 +67,14 @@ def remove_all_files(path):
     dir_list = os.listdir(path)
     for file in dir_list:
       to_remove = os.path.join(path, file)
-      print 'removing file: %s' % to_remove
+      # print 'removing file: %s' % to_remove
       remove_file(to_remove)
   else: 
     pass
 
 def remove_file(path):
   if os.path.isfile(path):
-    print 'Removing: %s' % path
+    # print 'Removing: %s' % path
     os.remove(path)
   else: 
     pass
@@ -80,9 +82,10 @@ def remove_file(path):
 def remove_dir(path):
   if os.path.exists(path) and os.path.isdir(path):
     if len(os.listdir(path)) != 0:
-      print "Can't remove dir: %s; not empty" % path
+      pass
+      # print "Can't remove dir: %s; not empty" % path
   else:
-    print "Removing dir: %s" % path
+    # print "Removing dir: %s" % path
     os.rmdir(path)
 
 #####################

@@ -7,28 +7,8 @@ import file_util
 import os
 import sys
 import imp
-
-OPTIONS_NAME = "pyrite_options.py"
-CSS_DIR = "pyrite_css" 
-JS_DIR = "pyrite_js" 
-MEDIA_DIR = "pyrite_media"
-DIRS = [CSS_DIR, JS_DIR, MEDIA_DIR]
-
-TEMP_DIR = "templates"
-
-DEFAULT_OPTS = "default_options.py"
-
-BLOG_JS_TEMP = "pyrite_blog_template.js"
-INDEX_TEMP = "index_template.html"
-CSS_TEMP = "basic.css"
-JQUERY = "jquery-1.7.1.min.js"
-
-DATA_FILE = "pyrite_data.js"
-BLOG_JS = "pyrite_blog.js"
-
-#For Reference: From the Options file:
-#INDEX_FILE = "index.html"
-#CSS_FILE = "pyrite.css"
+import templater 
+import psettings
 
 ##################################
 # Input-Directory Initialization #
@@ -50,7 +30,7 @@ def init_or_read_opts(input_dir, output_dir, clean_init):
 
 def indir_is_initd(input_dir):
   file_set = frozenset(os.listdir(input_dir))
-  if OPTIONS_NAME not in file_set:
+  if psettings.OPTIONS_NAME not in file_set:
     return False 
   else: 
     return True
@@ -80,30 +60,29 @@ def init_indir_and_options(input_dir):
   if input_location == '': input_location = input_dir
   options = options.replace('my_in_location', input_location)
 
-  print '' 
-  print 'Where do you want your generated blog-files to be put?'
+  print '\nWhere do you want your generated blog-files to be put?'
   output_location = raw_input('[default=%s]: ' % (
       os.path.join(input_dir, 'pyrite_output')))
   if output_location == '': 
     output_location = os.path.join(input_dir, 'pyrite_output')
   options = options.replace('my_out_location', output_location)
   print '------------------'
-  print 'Writing your options to %s' % OPTIONS_NAME
+  print 'Writing your options to %s' % psettings.OPTIONS_NAME
   print '------------------'
 
-  file_util.write_file(
-      os.path.join(input_dir, OPTIONS_NAME), options)
+  file_util.write_file(os.path.join(
+        input_dir, psettings.OPTIONS_NAME), options)
 
 def read_default_options():
   to_read = os.path.join(
       file_util.get_module_dir(),
-      TEMP_DIR,
-      DEFAULT_OPTS)
+      psettings.TEMP_DIR,
+      psettings.DEFAULT_OPTS)
   return file_util.read_file(to_read)
 
 def read_and_import_options(input_dir):
   options_mod = None
-  opts_file = os.path.join(input_dir, OPTIONS_NAME)
+  opts_file = os.path.join(input_dir, psettings.OPTIONS_NAME)
   print "Importing the options file"
   try: 
     options_mod = imp.load_source("options", opts_file)
@@ -125,30 +104,45 @@ def init_outdir_if_needed(out_dir, opts):
   ensure_base_dir_exists(out_dir)
   make_out_dirs(out_dir)
   
-  copy_template_file(out_dir, BLOG_JS, BLOG_JS_TEMP, [JS_DIR])
-
-  copy_template_file(out_dir, opts.INDEX_FILE, INDEX_TEMP, [])
+  copy_template_file(out_dir, psettings.BLOG_JS, opts, rdir=psettings.JS_DIR)
+  copy_template_file(out_dir, psettings.JQUERY, opts, rdir=psettings.JS_DIR)
+  copy_template_file(out_dir, opts.INDEX_FILE, opts, 
+                     in_file=psettings.INDEX_TEMP)
 
   # Right now, copying all the files. Could copy just the one specified.
   mod_dir = file_util.get_module_dir()    
-  for css in os.listdir(os.path.join(mod_dir, TEMP_DIR, CSS_DIR)):
-    copy_template_file(out_dir, css, css, [CSS_DIR])
+  for css in os.listdir(os.path.join(mod_dir, psettings.TEMP_DIR, 
+        psettings.CSS_DIR)):
+    copy_template_file(out_dir, css, opts, rdir=psettings.CSS_DIR)
 
-  copy_template_file(out_dir, JQUERY, JQUERY, [JS_DIR])
+
+def copy_template_file(out_dir, out_file, opts, in_file=None, rdir=None): 
+  in_path, out_path = create_in_out_pair(out_dir, out_file, in_file, rdir)
+
+  if not out_file == psettings.JQUERY:
+    fname = in_file or out_file
+    rendered = templater.render_base_templates(in_path, fname, opts)
+    file_util.write_file(out_path, rendered)
+  else:
+    file_util.copy_file_safe(in_path, out_path) 
 
 
-def copy_template_file(out_dir, out_file, in_file, connectors):
-  read_path = os.path.join(file_util.get_module_dir(), TEMP_DIR)
-  for con in connectors: 
-    read_path = os.path.join(read_path, con)
-  read_path = os.path.join(read_path, in_file)
+def create_in_out_pair(out_dir, out_file, in_file=None, connect=None):
+  read_path = os.path.join(file_util.get_module_dir(), psettings.TEMP_DIR)
+  if connect is not None:  
+    read_path = os.path.join(read_path, connect)
+
+  if in_file is not None:
+    read_path = os.path.join(read_path, in_file)
+  else:
+    read_path = os.path.join(read_path, out_file)
 
   out_path = out_dir
-  for con in connectors: 
-    out_path = os.path.join(out_path, con) 
+  if connect is not None:  
+    out_path = os.path.join(out_path, connect)
   out_path = os.path.join(out_path, out_file)
-  
-  file_util.copy_file_safe(read_path, out_path)
+
+  return (read_path, out_path)
 
 
 #####################
@@ -159,19 +153,19 @@ def ensure_base_dir_exists(path):
   if os.path.isdir(path):
     return
   else:
-    print "The directory: %s doesn't exist." % path
+    # print "The directory: %s doesn't exist." % path
     file_util.makedirs_quiet(path)
 
 def make_out_dirs(out_dir):
-  for direct in DIRS:
+  for direct in psettings.DIRS:
     file_util.makedirs_quiet(os.path.join(out_dir, direct))
 
 def clean_dirs(input_dir, output_dir): 
-  print 'Cleaning the pyrite-produced files'
-  file_util.remove_file(os.path.join(input_dir, OPTIONS_NAME))
+  # print 'Cleaning the pyrite-produced files'
+  file_util.remove_file(os.path.join(input_dir, psettings.OPTIONS_NAME))
   file_util.remove_file(os.path.join(output_dir, "pyrite_index.html"))
   moddir = file_util.get_module_dir() 
-  for d in DIRS: 
+  for d in psettings.DIRS: 
     dir_path = os.path.join(output_dir, d)
     # dirlist = os.path.listdir(
     file_util.remove_all_files(dir_path)

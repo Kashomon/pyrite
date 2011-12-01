@@ -17,7 +17,7 @@ OUT_DATE_FORMAT = "%d %B %Y"    # i.e., strftime
 #######################
 # Example: PYRITE_WEBSITE_LOCATION = 'www.myblog.com'
 PYRITE_WEBSITE_LOCATION = "my_website_url"
-
+ 
 # Pyrite assumes by default that your blog is located at
 # PYRITE_WEBSITE_LOCATION.
 PYRITE_PATH = "" 
@@ -39,6 +39,9 @@ CSS_FILE = "simple.css"
 ###################
 # CSS Information #
 ###################
+
+# All the Pyrite info gets stuffed into the Pyrite Div Id
+PYRITE_DIV_ID = "pyrite_blog"
 
 POST_CLASS = "pyrite_post" 
 CONTENT_CLASS = "pyrite_content"
