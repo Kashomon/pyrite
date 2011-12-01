@@ -16,9 +16,9 @@ This is my first post!
 
 class TestYamlParsing(unittest.TestCase):
 
-    def test_marked_capture(self):
-        self.assertTrue(parser.parse_yaml(yaml_ex)["title"] == "First Post!")
+  def test_marked_capture(self):
+    self.assertTrue(parser.parse_yaml(yaml_ex)["title"] == "First Post!")
 
 if __name__ == '__main__':
-    unittest.main()
+  unittest.main()
 

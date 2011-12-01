@@ -10,27 +10,22 @@ from .. import post_properties
 
 class TestPostProperties(unittest.TestCase):
 
-    def test_title_compile(self):
-        title = post_properties.Title("Title")
-        self.assertEqual(title.compile(), ("<div "
-                "class=\"post_title\">\nTitle\n</div>\n"))
+  def test_title_compile(self):
+    title = post_properties.Title("Title")
+    self.assertEqual(title.compile(), ("<div "
+      "class=\"post_title\">\nTitle\n</div>\n"))
 
-    def test_post_body_compile(self):
-        postbody = post_properties.PostBody("Body")
-        self.assertEqual(postbody.compile(), ("<div "
-                "class=\"post_body\">\nBody\n</div>\n"))
+  def test_post_body_compile(self):
+    postbody = post_properties.PostBody("Body")
+    self.assertEqual(postbody.compile(), ("<div "
+      "class=\"post_body\">\nBody\n</div>\n"))
 
-    def test_date_compile(self):
-        now=datetime.now()
-        date = post_properties.Date(now)
-        self.assertEqual(date.compile(), ("<div "  
-                "class=\"post_date\">\n"+str(now)+"\n</div>\n"))
-"""
-    def test_tags_compile(self):
-        tags = post_property.PostBody("Body")
-        self.assertEqual(postbody.compile(), "<div class=\"post_body\">\nBody\n</div>")        
-"""
+  def test_date_compile(self):
+    now=datetime.now()
+    date = post_properties.Date(now)
+    self.assertEqual(date.compile(), ("<div "  
+      "class=\"post_date\">\n"+str(now)+"\n</div>\n"))
 
 if __name__ == '__main__':
-    unittest.main()
+  unittest.main()
 

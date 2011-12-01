@@ -73,9 +73,9 @@ date: 13 November 2011
 
 for i in range(10000):
     
-    out = open("file_" + str(i) + ".yaml", "w")
+  out = open("file_" + str(i) + ".yaml", "w")
 
-    out.write(out_yaml % (i,text))
+  out.write(out_yaml % (i,text))
 
-    out.close()
+  out.close()
 
