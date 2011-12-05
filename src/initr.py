@@ -113,7 +113,8 @@ def init_outdir_if_needed(out_dir, opts):
   mod_dir = file_util.get_module_dir()    
   for css in os.listdir(os.path.join(mod_dir, psettings.TEMP_DIR, 
         psettings.CSS_DIR)):
-    copy_template_file(out_dir, css, opts, rdir=psettings.CSS_DIR)
+    if css.endswith(".css"):
+      copy_template_file(out_dir, css, opts, rdir=psettings.CSS_DIR)
 
 
 def copy_template_file(out_dir, out_file, opts, in_file=None, rdir=None): 

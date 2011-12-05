@@ -55,7 +55,7 @@ def main(argv=None):
           file_util.get_module_dir(), "test_files")
       arg_hash['out_dir'] = os.path.join(
           file_util.get_module_dir(), "test_files", "pyrite_blog")
-      arg_hash['clean_init'] = True
+      clean = True
     elif o == "--stress":
       arg_hash['in_dir'] = "stress_files"
       arg_hash['out_dir'] = "stress_files/test_blog_dir"

@@ -1,28 +1,23 @@
-.${pyrite_blog_id} {
-  padding: 50px
-}
-
-.${post_class} {
+.pyrite_post {
   padding: 10px;
-  border-bottom: solid, .5px;
 }
 
-.${title_class} {
+.pyrite_title {
   font-weight: bold;  
   padding-top: 2px
 }
 
-.${tags_class} {
+.pyrite_tags {
   color: #CC4500;
   padding-top: 2px  
 }
 
-.${date_class} {
+.pyrite_date {
   font-style: italic;
   padding-top: 2px  
 }
 
-.${content_class} {
+.pyrite_content {
    font: 0.75em georgia, sans-serif;
    letter-spacing: 1px;
 }
