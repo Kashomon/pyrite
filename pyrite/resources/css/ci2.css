@@ -1,0 +1,40 @@
+ul.${pyrite_blog_id} {
+  padding: 10px;
+  list-style-type: none;
+}
+
+li.${post_class} {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px;
+  border-color: #CCCCCC;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+.${date_class} {
+  display: inline;
+  text-align: left;
+  font-style: italic;
+  line-height: 1.5em;  
+  padding-right: 10px;
+  border-right: solid 1px;
+  border-color: #CCCCCC;
+}
+
+.${title_class} {
+  padding-left: 10px;
+  display: inline;
+  text-align: left;
+  line-height: 1.5em;  
+}
+
+.${tags_class} {
+  color: #CCCCCC;
+}
+
+.${content_class} {
+  font: 1em palatino;
+  letter-spacing: .5px;
+  line-height: 1.5em;  
+}
