@@ -4,6 +4,7 @@
 
 from setuptools import setup, find_packages
 import src
+import os
     
 setup(name='Pyrite',
     version=src.__version__,
@@ -12,10 +13,10 @@ setup(name='Pyrite',
     author_email='jrhoak@gmail.com',
     url='https://github.com/Kashomon/pyrite',
     license='MIT',
-    packages=["src", "src/data_structures", "src/resources"],
     install_requires=['argparse', 'mako'],
-    package_data={"src" : ["resources/*.html", "resources/pyrite_js/*.js",
-    "resources/pyrite_css/*.css"]},
+    packages=["pyrite", "pyrite/data_structures", "pyrite/resources"],
+    package_data={"pyrite" : ["resources/*.html", "resources/js/*.js",
+    "resources/css/*.css"]},
     entry_points="""
     [console_scripts]
     pyrite = src.main:main 
