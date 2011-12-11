@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (c) 2011 Joshua Hoak, Alissa Pajer
+# Copyright (c) 2011 Joshua Hoak
 # Licensed under the MIT License
 
 import creator 

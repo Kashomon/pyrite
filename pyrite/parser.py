@@ -1,11 +1,11 @@
 #!/usr/bin/python
-# Copyright (c) 2011 by Joshua Hoak, Alissa Pajer 
+# Copyright (c) 2011 by Joshua Hoak
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
 import re
 import sys
-from data_structures import blog
+import data_structures.blog
 
 def buildParser(parse_type, options): 
   return Parser(parse_type, options)
@@ -13,7 +13,7 @@ def buildParser(parse_type, options):
 class Parser(object): 
   def __init__(self, parse_type, options):
     self.options = options 
-    self.blog_parser = blog.BlogParser(parse_type, options)
+    self.blog_parser = data_structures.blog.BlogParser(parse_type, options)
     self.parse = self.toplevel_parser(parse_type)
 
   def toplevel_parser(self, parse_type):

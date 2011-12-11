@@ -1,15 +1,16 @@
 #!/usr/bin/python
-# Copyright (c) 2011 Joshua Hoak, Alissa Pajer
+# Copyright (c) 2011 Joshua Hoak
 # Licensed under the MIT License 
 # Author: Josh Hoak (jrhoak@gmail.com)
 
-import os 
+import os, inspect
 
 ###########
 # Reading #
 ###########
 
 def read_file(name):
+  #print os.listdir(os.path.dirname(name))
   infile = open(name, "r")
   contents = infile.read()
   infile.close()
@@ -100,4 +101,10 @@ def file_is_blog_type(fname):
   return False
 
 def get_module_dir(): 
+  # This apparently doesn't work: os.path.dirname(os.path.realpath(__file__))
+  # See this StackOverflow: 
+  # http://stackoverflow.com/questions/279237/python-import-a-module-from-a-folder 
   return os.path.dirname(os.path.realpath(__file__))
+  # return os.path.dirname(inspect.getfile(inspect.currentframe()))
+
+

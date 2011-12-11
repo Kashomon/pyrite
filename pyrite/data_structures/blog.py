@@ -8,9 +8,9 @@ import json
 import post 
 import os 
 
-import file_util 
-import psettings
-from util import safe_get
+from .. import file_util 
+from .. import psettings
+from ..util import safe_get
 
 from mako.template import Template
 
@@ -89,7 +89,8 @@ class Blog(object):
     return 
 
   def generate_json(self):
-    post_path = os.path.join(POST_TEMPLATE_DIR, "post.html")
+    post_path = os.path.join(file_util.get_module_dir(), 
+        POST_TEMPLATE_DIR, "post.html")
     template_str = file_util.read_file(post_path)
 
     compiled_posts = {}

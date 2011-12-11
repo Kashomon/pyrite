@@ -8,7 +8,7 @@ import content
 import hashlib 
 from null_prop import NullProp
 
-from util import get_or_else
+from ..util import get_or_else
 
 class PostParser(object): 
   def __init__(self, parse_type, options):
