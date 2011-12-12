@@ -17,7 +17,8 @@ import psettings
 def init_or_read_opts(input_dir, output_dir, clean_init):
   if not indir_is_initd(input_dir) and not clean_init:
     init_indir_and_options(input_dir)
-    print "Finished initializing Pyrite. Have fun Pyriting!" 
+    print "Finished initializing Pyrite." 
+    print '------------------'
 
   if clean_init:
     clean_dirs(input_dir, output_dir) 

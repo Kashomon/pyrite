@@ -10,6 +10,7 @@ import os
 
 from .. import file_util 
 from .. import psettings
+from .. import templater
 from ..util import safe_get
 
 from mako.template import Template
@@ -40,7 +41,7 @@ class Blog(object):
   def __init__(self, posts, options):
     self.options = options
     self.posts = posts
-    self.title = "BlogoTest"
+    self.title = options.BLOG_NAME
     self.links = {}
 
   def sort_posts(self):
@@ -89,16 +90,17 @@ class Blog(object):
     return 
 
   def generate_json(self):
-    post_path = os.path.join(file_util.get_module_dir(), 
-        POST_TEMPLATE_DIR, "post.html")
-    template_str = file_util.read_file(post_path)
-
+    post_path = os.path.join(file_util.get_module_dir(), POST_TEMPLATE_DIR) 
+    post_temp_str = file_util.read_file(os.path.join(post_path, "post.html"))
+    blog_temp_str = file_util.read_file(os.path.join(post_path, "blog.html"))
     compiled_posts = {}
     for post in self.posts:
-      template = Template(template_str)
+      template = Template(post_temp_str)
       compiled_posts[post.post_id] = post.render(template)
     self.links["compiled_posts"] = compiled_posts
-    return json.dumps(self.links, indent=4)
+    self.links["blog_holder"] = templater.render_blog(
+        Template(blog_temp_str), self.title, self.options)
+    return json.dumps(self.links, indent=2)
 
   def display_ast(self):
     out = "Blog: " + self.title + "\n"
@@ -106,5 +108,4 @@ class Blog(object):
     for post in self.posts:
       out += post.display_ast(1)
     return out.strip()
-
 

@@ -5,8 +5,5 @@
 
 from pyrite import main
 
-def main_run(argv=None): 
-  main.main(argv)
-
 if __name__ == "__main__":
-  main_run()
+  main.main() 
