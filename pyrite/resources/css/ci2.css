@@ -49,9 +49,9 @@ li.${post_class} {
 }
 
 ul#${archive_bar} { 
-  float: right;
-  border: solid 1px;
-  border-color: #CCCCCC;
+  _float: right;
+  _border: solid 1px;
+  _border-color: #CCCCCC;
 }
 
 li.${archive_link} { 
